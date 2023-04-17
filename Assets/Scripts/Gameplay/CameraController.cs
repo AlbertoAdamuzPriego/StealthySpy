@@ -22,10 +22,9 @@ public class CameraController : MonoBehaviour
         nearBackground = GameObject.FindGameObjectWithTag("NearBackground").GetComponent<Transform>();
     }
 
-    // Update is called once per frame
     void LateUpdate()
     {
-       
+
         //Actualizamos la posición de la cámara a la posición del CameraPoint
         transform.position = new Vector3(Mathf.Clamp(target.position.x, minX, maxX), Mathf.Clamp(target.position.y, minHeight, maxHeight), transform.position.z);
 

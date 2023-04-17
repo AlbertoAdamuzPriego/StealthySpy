@@ -13,7 +13,8 @@ public class VisionTriangleController : MonoBehaviour
     [SerializeField] private float initialAngle = 90f;
     [SerializeField] private LayerMask obstacleLayerMask;
     [SerializeField] private int segments = 30; // número de segmentos para el mesh
-
+    [SerializeField] private Transform originPoint;
+    public float startAngle;
     private Mesh visionMesh;
     private MeshFilter visionMeshFilter;
     private PolygonCollider2D polygonCollider;
@@ -25,19 +26,7 @@ public class VisionTriangleController : MonoBehaviour
         polygonCollider = GetComponent<PolygonCollider2D>();
         isPlayerDetected = false;
     }
-
-
-    void Update()
-    { 
-       
-        DrawMesh();
-
-        if(isPlayerDetected)
-        {
-            Debug.Log("PLayer detected");
-        }
-        
-    }
+    
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
@@ -56,8 +45,11 @@ public class VisionTriangleController : MonoBehaviour
         }
     }
 
-    private void DrawMesh()
+    public bool DrawMesh(float rotation)
     {
+        transform.position = originPoint.position;
+        Debug.Log(rotation);
+        startAngle = initialAngle - rotation;
         // Crear un nuevo mesh para el área de visión
         visionMesh.Clear();
         Vector3[] vertices = new Vector3[segments + 1 + 1];
@@ -69,7 +61,8 @@ public class VisionTriangleController : MonoBehaviour
         vertices[0] = Vector3.zero;
         points[0] = Vector2.zero;
         float angleIncrement = viewAngle / segments;
-        float currentAngle = -viewAngle / 2f - initialAngle;
+        float currentAngle = -viewAngle / 2f - startAngle;
+        ;
 
 
         int vertexIndex = 1;
@@ -122,5 +115,7 @@ public class VisionTriangleController : MonoBehaviour
 
         // Asignar el mesh actualizado al MeshFilter
         visionMeshFilter.mesh = visionMesh;
+
+        return isPlayerDetected;
     }
 }
