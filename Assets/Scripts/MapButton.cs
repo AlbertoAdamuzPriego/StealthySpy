@@ -22,7 +22,7 @@ public class MapButton : MonoBehaviour
 
     private void Start()
     {
-        transform.GetChild(0).GetComponent<TMP_Text>().text = mapName;
+        transform.GetChild(0).GetComponentInChildren<TMP_Text>().text = mapName;
 
         var button = GetComponent<Button>();
         button.onClick.AddListener(OpenMap);

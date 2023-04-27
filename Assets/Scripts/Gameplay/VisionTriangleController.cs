@@ -14,15 +14,19 @@ public class VisionTriangleController : MonoBehaviour
     [SerializeField] private LayerMask obstacleLayerMask;
     [SerializeField] private int segments = 30; // número de segmentos para el mesh
     [SerializeField] private Transform originPoint;
+    [SerializeField] private Material fovMaterial;
+    [SerializeField] private Material fovMaterialDetection;
     public float startAngle;
     private Mesh visionMesh;
     private MeshFilter visionMeshFilter;
+    private MeshRenderer visionMeshRenderer;
     private PolygonCollider2D polygonCollider;
     public bool isPlayerDetected;
     void Start()
     {
         visionMesh = new Mesh();
         visionMeshFilter = GetComponent<MeshFilter>();
+        visionMeshRenderer = GetComponent<MeshRenderer>();
         polygonCollider = GetComponent<PolygonCollider2D>();
         isPlayerDetected = false;
     }
@@ -34,6 +38,8 @@ public class VisionTriangleController : MonoBehaviour
         if(collider.CompareTag("Player"))
         {
             isPlayerDetected = true;
+
+            visionMeshRenderer.material = fovMaterialDetection;
         }
     }
 
@@ -42,14 +48,22 @@ public class VisionTriangleController : MonoBehaviour
         if (collider.CompareTag("Player"))
         {
             isPlayerDetected = false;
+
+            visionMeshRenderer.material = fovMaterial;
         }
     }
 
-    public bool DrawMesh(float rotation)
+    public void setInitialAngle(float angle)
+    {
+        initialAngle = angle;
+    }
+
+    public bool DrawMesh(float rotation=0)
     {
         transform.position = originPoint.position;
-        Debug.Log(rotation);
+        
         startAngle = initialAngle - rotation;
+        
         // Crear un nuevo mesh para el área de visión
         visionMesh.Clear();
         Vector3[] vertices = new Vector3[segments + 1 + 1];

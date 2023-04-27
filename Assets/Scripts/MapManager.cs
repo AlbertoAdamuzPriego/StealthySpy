@@ -29,6 +29,11 @@ public class MapManager : MonoBehaviour
         GameManager.instance.OnLevelMenu -= CreateButton;
     }
 
+    public int GetNumberOfMaps()
+    {
+        return maps.Count;
+    }
+
     // Update is called once per frame
     void Update()
     {

@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     public event Action OnSettingsMenu; //Estado en menú de ajustes 
     public event Action OnLevelMenu; //Estado en menú de niveles
     public event Action OnCreditsMenu; //Estado en menú de créditos
+    public event Action OnScoreMenu;
 
 
     public static GameManager instance; //Instancia del script (Patron Singleton)
@@ -64,6 +65,13 @@ public class GameManager : MonoBehaviour
         //Comprueba que existe algo suscrito al evento OnLevelMenu
         OnCreditsMenu?.Invoke();
         Debug.Log("CreditsMenu activated");
+    }
+
+    public void ScoreMenu()
+    {
+        //Comprueba que existe algo suscrito al evento OnLevelMenu
+        OnScoreMenu?.Invoke();
+        Debug.Log("ScoreMenu activated");
     }
 
     //Cierra el juego

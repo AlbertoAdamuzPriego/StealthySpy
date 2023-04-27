@@ -12,16 +12,22 @@ public class SecurityCamera : MonoBehaviour
     private Quaternion startRotation;
     private Quaternion targetRotation;
     private float progress = 0f;
+    private bool playerIsDetected;
+
+    [SerializeField] private float waitTime;
+
+    private float timer;
 
     void Start()
     {
         startRotation = transform.rotation; // Rotación inicial del objeto
         targetRotation = finalRotation; // Rotación objetivo del objeto
+        timer = 0;
+        playerIsDetected = false;
     }
 
     private void Update()
-    {
-        float z = transform.rotation.z; 
+    { 
         // Incrementar el progreso de la rotación
         progress += rotationSpeed * Time.deltaTime;
 
@@ -31,14 +37,25 @@ public class SecurityCamera : MonoBehaviour
         // Si se ha alcanzado la rotación objetivo, reiniciar la rotación
         if (progress >= 1f)
         {
-            progress = 0f;
-            Quaternion tempRotation = startRotation;
-            startRotation = targetRotation;
-            targetRotation = tempRotation;
+            UpdateTimer();
+      
+            if (timer>waitTime)
+            {
+                progress = 0f;
+                Quaternion tempRotation = startRotation;
+                startRotation = targetRotation;
+                targetRotation = tempRotation;
+                timer = 0;
+            }
+    
         }
 
-        bool player=fov.DrawMesh(transform.rotation.z*100);
+        else
+           playerIsDetected = fov.DrawMesh(transform.rotation.z*100);
     }
 
-
+    private void UpdateTimer()
+    {
+        timer += Time.deltaTime;
+    }
 }
