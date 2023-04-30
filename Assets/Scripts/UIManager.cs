@@ -52,10 +52,11 @@ public class UIManager : MonoBehaviour
         settingsMenuCanvas.transform.GetChild(0).transform.DOScale(new Vector3(0.7f, 0.7f, 1), 0.3f);
         settingsMenuCanvas.transform.GetChild(1).transform.DOScale(new Vector3(5, 5, 1), 0.3f);
         settingsMenuCanvas.transform.GetChild(2).transform.DOScale(new Vector3(5, 5, 1), 0.3f);
-        settingsMenuCanvas.transform.GetChild(3).transform.DOScale(new Vector3(1, 1, 1), 0.3f);
-        settingsMenuCanvas.transform.GetChild(4).transform.DOScale(new Vector3(1, 1, 1), 0.3f);
+        settingsMenuCanvas.transform.GetChild(3).transform.DOScale(new Vector3(10, 7, 1), 0.3f);
+        settingsMenuCanvas.transform.GetChild(4).transform.DOScale(new Vector3(2, 2, 1), 0.3f);
         
     }
+    
 
     private void activateLevelMenu()
     {

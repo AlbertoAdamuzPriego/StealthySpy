@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1931232041}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: OriginPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -86,6 +86,8 @@ MonoBehaviour:
     m_Bits: 64
   segments: 30
   originPoint: {fileID: 1931232041}
+  fovMaterial: {fileID: 0}
+  fovMaterialDetection: {fileID: 0}
   startAngle: 0
   isPlayerDetected: 0
 --- !u!33 &7698439101063184429
@@ -179,7 +181,7 @@ GameObject:
   - component: {fileID: 7698439101640856017}
   - component: {fileID: 7698439101640856016}
   - component: {fileID: 157769344}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -269,6 +271,7 @@ MonoBehaviour:
   finalRotation: {x: 0, y: 0, z: 0.25881904, w: 0.9659258}
   rotationSpeed: 0.2
   fov: {fileID: 7698439101063184428}
+  waitTime: 0
 --- !u!1 &7698439101762226192
 GameObject:
   m_ObjectHideFlags: 0
@@ -278,10 +281,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7698439101762226286}
+  - component: {fileID: 2812135088854181932}
   - component: {fileID: 7698439101762226287}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Camera
-  m_TagString: Untagged
+  m_TagString: Obstacles
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -303,6 +307,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2812135088854181932
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7698439101762226192}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22d879a4d1669df4d8f707299fededfe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dificulty: 0
 --- !u!212 &7698439101762226287
 SpriteRenderer:
   m_ObjectHideFlags: 0

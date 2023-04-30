@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Data.SqlTypes;
-using TreeEditor;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -16,11 +15,15 @@ public class EnemyController : MonoBehaviour
 
     [SerializeField] private float waitTime;
 
-    private float timer;
+    private float waitTimer;
+    private float incapacitedTimer;
 
     int currentTarget=0;
 
     private SpriteRenderer sprite;
+
+    private bool incapacitated = false;
+    [SerializeField] private float incapacitedTime;
 
     [SerializeField] VisionTriangleController fov;
 
@@ -33,40 +36,56 @@ public class EnemyController : MonoBehaviour
         Turn();
 
         fov=GetComponentInChildren<VisionTriangleController>();
-        timer = 0;
+        waitTimer = 0;
+        incapacitedTimer = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!playerIsDetected)
+        if (!incapacitated)
         {
-            if (MoveToTarget())
+
+
+            if (!playerIsDetected)
             {
-                transform.position = Vector2.MoveTowards(transform.position, pointsMovement[currentTarget], speedMovement * Time.deltaTime);
+                if (MoveToTarget())
+                {
+                    transform.position = Vector2.MoveTowards(transform.position, pointsMovement[currentTarget], speedMovement * Time.deltaTime);
+                }
+
+                else
+                {
+                    UpdateWaitTimer();
+
+                    if (waitTimer >= waitTime)
+                    {
+                        currentTarget = (currentTarget + 1) % pointsMovement.Length;
+                        Turn();
+                        waitTimer = 0;
+                    }
+                }
+
             }
 
             else
             {
-                UpdateTimer();
 
-                if (timer >= waitTime)
-                {
-                    currentTarget = (currentTarget + 1) % pointsMovement.Length;
-                    Turn();
-                    timer = 0;
-                }
             }
 
+
+            fov.DrawMesh();
         }
 
         else
         {
+            UpdateIncapacitedTimer();
 
+            if(incapacitedTimer >= incapacitedTime)
+            {
+                WakeUp();
+            }
         }
-
-
-        fov.DrawMesh();
     }
 
     private bool MoveToTarget()
@@ -95,8 +114,27 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    private void UpdateTimer()
+    private void UpdateWaitTimer()
     {
-        timer += Time.deltaTime;
+        waitTimer += Time.deltaTime;
+    }
+
+    private void UpdateIncapacitedTimer()
+    {
+        incapacitedTimer += Time.deltaTime;
+    }
+
+    public void Incapacite()
+    {
+        incapacitated = true;
+        incapacitedTimer = 0;
+        fov.gameObject.SetActive(false);
+
+    }
+
+    private void WakeUp()
+    {
+        incapacitated = false;
+        fov.gameObject.SetActive(true);
     }
 }

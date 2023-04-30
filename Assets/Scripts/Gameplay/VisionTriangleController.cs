@@ -16,6 +16,7 @@ public class VisionTriangleController : MonoBehaviour
     [SerializeField] private Transform originPoint;
     [SerializeField] private Material fovMaterial;
     [SerializeField] private Material fovMaterialDetection;
+    private float  timeDetection=0;
     public float startAngle;
     private Mesh visionMesh;
     private MeshFilter visionMeshFilter;
@@ -30,17 +31,37 @@ public class VisionTriangleController : MonoBehaviour
         polygonCollider = GetComponent<PolygonCollider2D>();
         isPlayerDetected = false;
     }
-    
+
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
-       
-        if(collider.CompareTag("Player"))
+
+        if (collider.CompareTag("Player"))
         {
             isPlayerDetected = true;
 
             visionMeshRenderer.material = fovMaterialDetection;
+
+            timeDetection = 0;
         }
+    }
+    
+    private void  OnTriggerStay2D(Collider2D collider)
+    {
+        if (collider.CompareTag("Player"))
+        {
+            timeDetection += Time.deltaTime;
+
+            if(timeDetection > 0.5f)
+            {
+           
+                GameplayManager.instance.Finish();
+          
+            }
+
+
+        }
+
     }
 
     private void OnTriggerExit2D(Collider2D collider)
@@ -50,6 +71,8 @@ public class VisionTriangleController : MonoBehaviour
             isPlayerDetected = false;
 
             visionMeshRenderer.material = fovMaterial;
+
+            timeDetection = 0;
         }
     }
 

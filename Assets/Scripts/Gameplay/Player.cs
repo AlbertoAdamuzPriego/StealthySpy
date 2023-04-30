@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Xml.Serialization;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -19,6 +22,10 @@ public class Player : MonoBehaviour
     [SerializeField] LayerMask whatIsGround; //Capa del suelo
     private bool isGrounded; //Indica si el jugador está en el suelo
 
+
+    [SerializeField] GameObject incapacitedButton;
+    private BoxCollider2D incapacitedArea;
+    private GameObject enemy;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,6 +33,7 @@ public class Player : MonoBehaviour
         animator = GetComponent<Animator>();
         SR = GetComponent<SpriteRenderer>();
         whatIsGround = LayerMask.GetMask("Ground");
+        incapacitedArea = GetComponentInChildren<BoxCollider2D>();
     }
 
     // Update is called once per frame
@@ -71,5 +79,31 @@ public class Player : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+ 
+        if (collision.CompareTag("Obstacles"))
+        {
+            enemy = collision.gameObject;
+            incapacitedButton.GetComponent<Image>().color = Color.white;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Obstacles"))
+        {
+            enemy = null;
+            incapacitedButton.GetComponent<Image>().color = Color.gray;
+        }
+    }
+
+    public void Incapacitate()
+    {
+        if(enemy != null)
+        {
+            enemy.GetComponent<EnemyController>().Incapacite();
+        }
+    }
 
 }
