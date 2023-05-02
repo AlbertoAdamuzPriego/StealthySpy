@@ -14,6 +14,8 @@ public class GameManager : MonoBehaviour
 
     public static GameManager instance; //Instancia del script (Patron Singleton)
 
+    public int finishMode;
+
     //Controla que solo exista una instancia de GameManager
     private void Awake()
     {
@@ -31,7 +33,9 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         //La aplicación comienza en el menu principal
-        MainMenu();
+        LoadData();
+
+
     }
 
     //Activa el menú principal
@@ -39,7 +43,8 @@ public class GameManager : MonoBehaviour
     {
         //Comprueba que existe algo suscrito al evento OnMainMenu
         OnMainMenu?.Invoke();
-        Debug.Log("MainMenu activated");
+        PlayerPrefs.SetInt("finish", -1);
+
     }
 
     //Activa el menú de ajustes
@@ -47,16 +52,17 @@ public class GameManager : MonoBehaviour
     {
         //Comprueba que existe algo suscrito al evento OnSettingsMenu
         OnSettingsMenu?.Invoke();
-        Debug.Log("SenttingMenu activated");
+      
     }
 
     //Activa el menú de niveles
     public void LevelMenu()
     {
         //Comprueba que existe algo suscrito al evento OnLevelMenu
-        Debug.Log("LevelMenu activated");
+       
         OnLevelMenu?.Invoke();
-        Debug.Log("LevelMenu activated");
+        PlayerPrefs.SetInt("finish", -1);
+
     }
 
     //Activa el menú de créditos
@@ -64,20 +70,51 @@ public class GameManager : MonoBehaviour
     {
         //Comprueba que existe algo suscrito al evento OnLevelMenu
         OnCreditsMenu?.Invoke();
-        Debug.Log("CreditsMenu activated");
+
     }
 
     public void ScoreMenu()
     {
         //Comprueba que existe algo suscrito al evento OnLevelMenu
         OnScoreMenu?.Invoke();
-        Debug.Log("ScoreMenu activated");
+        
     }
 
     //Cierra el juego
     public void CloseGame()
     {
-     
+        PlayerPrefs.SetInt("finish",-1);
         Application.Quit();
+    }
+
+    private void LoadData()
+    {
+        finishMode = PlayerPrefs.GetInt("finish");
+        
+        if(finishMode==0 )
+        {
+            
+        }
+
+        else if(finishMode==1 ) 
+        {
+            
+        }
+
+        else if(finishMode==2 )
+        {
+            LevelMenu(); 
+        }
+
+        else
+        {
+            MainMenu();
+        }
+    }
+
+    private void Update()
+    {
+
+
     }
 }

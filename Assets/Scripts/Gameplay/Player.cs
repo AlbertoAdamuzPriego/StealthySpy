@@ -26,6 +26,7 @@ public class Player : MonoBehaviour
     [SerializeField] GameObject incapacitedButton;
     private BoxCollider2D incapacitedArea;
     private GameObject enemy;
+    public bool visible;
     // Start is called before the first frame update
     void Start()
     {
@@ -34,6 +35,7 @@ public class Player : MonoBehaviour
         SR = GetComponent<SpriteRenderer>();
         whatIsGround = LayerMask.GetMask("Ground");
         incapacitedArea = GetComponentInChildren<BoxCollider2D>();
+        visible = true;
     }
 
     // Update is called once per frame
@@ -49,26 +51,30 @@ public class Player : MonoBehaviour
         if (RB.velocity.x < 0)
         {
             SR.flipX = true;
+            incapacitedArea.gameObject.transform.localScale = new Vector3(-1, 1, 1);
         }
 
         else if (RB.velocity.x > 0)
         {
             SR.flipX = false;
+            incapacitedArea.gameObject.transform.localScale = new Vector3(1, 1, 1);
         }
 
 
         //Comprobamos si el jugador está en el suelo
         isGrounded = Physics2D.OverlapCircle(groundCheckPoint.position, 0.2f, whatIsGround);
 
-        /*//Comprobamos si el jugador puede saltar
-        if (Input.GetButtonDown("Jump") && isGrounded)
-        {
-            //Realizamos el salto
-            RB.velocity = new Vector2(RB.velocity.x, jumpForce);
-        }
-        */
         animator.SetFloat("moveSpeed", Mathf.Abs(RB.velocity.x));
 
+        if(!visible)
+        {
+            SR.color = new Color(0.77f, 0.77f, 0.77f, 1);
+        }
+
+        else
+        {
+            SR.color = new Color(1, 1, 1, 1);
+        }
     }
 
     public void Jump()

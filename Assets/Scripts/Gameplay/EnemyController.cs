@@ -126,10 +126,12 @@ public class EnemyController : MonoBehaviour
 
     public void Incapacite()
     {
-        incapacitated = true;
-        incapacitedTimer = 0;
-        fov.gameObject.SetActive(false);
-
+        if (!incapacitated)
+        {
+            incapacitated = true;
+            incapacitedTimer = 0;
+            fov.gameObject.SetActive(false);
+        }
     }
 
     private void WakeUp()

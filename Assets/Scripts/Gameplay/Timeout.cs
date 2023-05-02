@@ -13,7 +13,7 @@ public class Timeout:MonoBehaviour
     private void Start()
     {
         GameplayManager.instance.OnGameplay += ReanudeCount;
-        GameplayManager.instance.OnPause += StopCount;
+        GameplayManager.instance.OnPause += PauseCount;
         GameplayManager.instance.OnFinished += StopCount;
     }
     public void StartCount(float MaxTime)
@@ -29,10 +29,11 @@ public class Timeout:MonoBehaviour
         {
             time -= Time.deltaTime;
 
+            Debug.Log(time);
             if(time <= 0 )
             {
                 enable = false;
-                GameplayManager.instance.Finish();
+                GameplayManager.instance.GameOver();
             }
         }
 
@@ -46,7 +47,7 @@ public class Timeout:MonoBehaviour
 
     public void PauseCount() 
     { 
-        enable =false;
+        enable = false;
     }
 
     public void ReanudeCount()

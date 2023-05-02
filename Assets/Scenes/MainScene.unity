@@ -475,6 +475,8 @@ MonoBehaviour:
   maps:
   - {fileID: 11400000, guid: d2b03a699004ec343bbce9f1b5fccb9b, type: 2}
   - {fileID: 11400000, guid: 377df7b6f7aac8942b4a5e4e9f008dda, type: 2}
+  - {fileID: 11400000, guid: d2b03a699004ec343bbce9f1b5fccb9b, type: 2}
+  - {fileID: 11400000, guid: 377df7b6f7aac8942b4a5e4e9f008dda, type: 2}
   buttonContainer: {fileID: 1971923527}
   mapButton: {fileID: -5041543206185355629, guid: 33da8c532aface04dab8d6149e0baa38, type: 3}
 --- !u!4 &208846547
@@ -813,7 +815,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -38.000244}
+  m_AnchoredPosition: {x: 0, y: -38}
   m_SizeDelta: {x: -2200, y: -880}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &277663236
@@ -4819,6 +4821,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e0e9801674b0144cace71ab2508e620, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  finishMode: 0
 --- !u!4 &1460156092
 Transform:
   m_ObjectHideFlags: 0
@@ -5494,7 +5497,7 @@ MonoBehaviour:
   m_Direction: 0
   m_Value: 0
   m_Size: 0.5
-  m_NumberOfSteps: 0
+  m_NumberOfSteps: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -6622,7 +6625,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -534453, y: 0.012439556}
+  m_AnchoredPosition: {x: -946895.44, y: 0.012439556}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1971923529

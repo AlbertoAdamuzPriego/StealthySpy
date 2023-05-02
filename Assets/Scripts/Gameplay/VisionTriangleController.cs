@@ -38,11 +38,16 @@ public class VisionTriangleController : MonoBehaviour
 
         if (collider.CompareTag("Player"))
         {
-            isPlayerDetected = true;
+            if (collider.gameObject.GetComponent<Player>().visible)
+            {
 
-            visionMeshRenderer.material = fovMaterialDetection;
+                isPlayerDetected = true;
 
-            timeDetection = 0;
+                visionMeshRenderer.material = fovMaterialDetection;
+
+                timeDetection = 0;
+            }
+        
         }
     }
     
@@ -50,13 +55,16 @@ public class VisionTriangleController : MonoBehaviour
     {
         if (collider.CompareTag("Player"))
         {
-            timeDetection += Time.deltaTime;
-
-            if(timeDetection > 0.5f)
+            if (collider.gameObject.GetComponent<Player>().visible)
             {
-           
-                GameplayManager.instance.Finish();
-          
+                timeDetection += Time.deltaTime;
+
+                if (timeDetection > 0.5f)
+                {
+
+                    GameplayManager.instance.GameOver();
+
+                }
             }
 
 
@@ -68,6 +76,7 @@ public class VisionTriangleController : MonoBehaviour
     {
         if (collider.CompareTag("Player"))
         {
+           
             isPlayerDetected = false;
 
             visionMeshRenderer.material = fovMaterial;
