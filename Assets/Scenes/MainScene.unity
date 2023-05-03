@@ -479,6 +479,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 377df7b6f7aac8942b4a5e4e9f008dda, type: 2}
   buttonContainer: {fileID: 1971923527}
   mapButton: {fileID: -5041543206185355629, guid: 33da8c532aface04dab8d6149e0baa38, type: 3}
+  scrollbar: {fileID: 1800910659}
 --- !u!4 &208846547
 Transform:
   m_ObjectHideFlags: 0
@@ -2066,8 +2067,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 78172467d93f859489fbb115cc484852, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -3798,6 +3799,30 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1800910664}
+        m_TargetAssemblyTypeName: ScrollbarManager, Assembly-CSharp
+        m_MethodName: SetInitialValue
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 684126808}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: RestartScrollbar
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1247851161
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4457,11 +4482,11 @@ MonoBehaviour:
   m_Options:
     m_Options:
     - m_Text: "F\xE1cil"
-      m_Image: {fileID: 0}
+      m_Image: {fileID: 21300000, guid: 78172467d93f859489fbb115cc484852, type: 3}
     - m_Text: Normal
-      m_Image: {fileID: 0}
+      m_Image: {fileID: 21300000, guid: 78172467d93f859489fbb115cc484852, type: 3}
     - m_Text: Dificil
-      m_Image: {fileID: 0}
+      m_Image: {fileID: 21300000, guid: 78172467d93f859489fbb115cc484852, type: 3}
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -4822,6 +4847,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   finishMode: 0
+  difficultyLabel: {fileID: 1121535945}
 --- !u!4 &1460156092
 Transform:
   m_ObjectHideFlags: 0
@@ -5551,6 +5577,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b106eb09625670f4bb09bdd3c2c71f65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  content: {fileID: 1971923527}
 --- !u!1 &1801175683
 GameObject:
   m_ObjectHideFlags: 0
@@ -5561,6 +5588,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1801175684}
   - component: {fileID: 1801175685}
+  - component: {fileID: 1801175686}
   m_Layer: 0
   m_Name: Item
   m_TagString: Untagged
@@ -5637,8 +5665,33 @@ MonoBehaviour:
   m_Group: {fileID: 0}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1801175686}
+        m_TargetAssemblyTypeName: DifficultControl, Assembly-CSharp
+        m_MethodName: ChangeDifficulty
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_IsOn: 1
+--- !u!114 &1801175686
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1801175683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a386d021d36a3244a9194c57f303259a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label: {fileID: 1121535945}
 --- !u!1 &1820507739
 GameObject:
   m_ObjectHideFlags: 0
@@ -6625,7 +6678,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -946895.44, y: 0.012439556}
+  m_AnchoredPosition: {x: -1393233, y: 0.012439556}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1971923529

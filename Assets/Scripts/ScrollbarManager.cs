@@ -2,13 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using DG.Tweening;
 public class ScrollbarManager : MonoBehaviour
 {
     // Start is called before the first frame update
     private int currentStep;
     int steps;
     Scrollbar scrollBar;
+    [SerializeField] GameObject content;
     void Start()
     {
       
@@ -17,6 +18,7 @@ public class ScrollbarManager : MonoBehaviour
         steps =FindObjectOfType<MapManager>().GetNumberOfMaps();
 
         scrollBar.numberOfSteps = 1;
+        
         scrollBar.onValueChanged.AddListener((value) =>
         {
             /*
@@ -49,9 +51,9 @@ public class ScrollbarManager : MonoBehaviour
         scrollBar.value = currentStep;
     }
 
-    private void Update()
+    public void SetInitialValue()
     {
-        Debug.Log(scrollBar.value);
+        scrollBar.value = 0f;
     }
 
 }

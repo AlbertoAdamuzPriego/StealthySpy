@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-
+using TMPro;
 public class GameManager : MonoBehaviour
 {
     public event Action OnMainMenu; //Estado en menú principal
@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour
     public static GameManager instance; //Instancia del script (Patron Singleton)
 
     public int finishMode;
+
+    [SerializeField] private TMP_Text difficultyLabel;
 
     //Controla que solo exista una instancia de GameManager
     private void Awake()
@@ -61,6 +63,7 @@ public class GameManager : MonoBehaviour
         //Comprueba que existe algo suscrito al evento OnLevelMenu
        
         OnLevelMenu?.Invoke();
+
         PlayerPrefs.SetInt("finish", -1);
 
     }
@@ -89,6 +92,16 @@ public class GameManager : MonoBehaviour
 
     private void LoadData()
     {
+        int difficulty = PlayerPrefs.GetInt("difficulty");
+        switch (difficulty)
+        {
+            case 0: difficultyLabel.SetText("Fácil"); break;
+
+            case 1: difficultyLabel.SetText("Normal"); break;
+
+            case 2: difficultyLabel.SetText("Dificil"); break;
+        }
+
         finishMode = PlayerPrefs.GetInt("finish");
         
         if(finishMode==0 )
@@ -112,9 +125,4 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-
-
-    }
 }

@@ -15,16 +15,13 @@ public class GameplayManager : MonoBehaviour
 
     [SerializeField] string map;
 
-    [SerializeField] private int dificulty;
+    [SerializeField] private int difficulty;
     [SerializeField] private float time;
 
     private int finishMode;
     private string finishModePrefs="finish";
 
     public static GameplayManager instance; //Instancia del script (Patron Singleton)
-
-    public int Dificulty { set { dificulty=value; } }
-
     private void Awake()
     {
       
@@ -42,11 +39,11 @@ public class GameplayManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        difficulty = PlayerPrefs.GetInt("difficulty");
         Timeout timer= FindAnyObjectByType<Timeout>();
         InitializeObstacles();
         timer.StartCount(time);
         map = SceneManager.GetActiveScene().name;
-
         OnFinished += SaveData;
         Gameplay();
 
@@ -81,16 +78,15 @@ public class GameplayManager : MonoBehaviour
     }
 
 
-
     private void InitializeObstacles()
     {
-        if (dificulty < 2)
+        if (difficulty < 2)
         {
             GameObject[] obstacles = GameObject.FindGameObjectsWithTag("Obstacles");
 
             foreach (GameObject obstacle in obstacles)
             {
-                if (obstacle.GetComponent<Obstacle>().Dificulty() > dificulty)
+                if (obstacle.GetComponent<Obstacle>().Dificulty() > difficulty)
                 {
                     obstacle.SetActive(false);
                 }

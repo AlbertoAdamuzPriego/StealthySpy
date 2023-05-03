@@ -2,12 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
+using DG.Tweening;
 public class MapManager : MonoBehaviour
 {
     [SerializeField] private List<Map> maps = new List<Map>();
     [SerializeField] private GameObject buttonContainer;
     [SerializeField] private MapButton mapButton;
+    [SerializeField] private GameObject scrollbar;
 
     void Start()
     {
@@ -27,6 +29,7 @@ public class MapManager : MonoBehaviour
         }
 
         GameManager.instance.OnLevelMenu -= CreateButton;
+     
     }
 
     public int GetNumberOfMaps()
