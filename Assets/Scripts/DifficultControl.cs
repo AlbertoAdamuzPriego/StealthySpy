@@ -4,9 +4,10 @@ using UnityEngine;
 using static Map;
 using TMPro;
 using UnityEngine.UI;
-
+using System;
 public class DifficultControl : MonoBehaviour
 {
+    public event Action OnChangeDifficulty;
     [SerializeField] private TMP_Text label;
     private void Start()
     {
@@ -40,6 +41,8 @@ public class DifficultControl : MonoBehaviour
                 PlayerPrefs.SetInt("difficulty",2);
                 break;
         }
+
+        GameManager.instance.Difficulty();
 
     }
 }

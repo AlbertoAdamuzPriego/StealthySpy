@@ -14,3 +14,39 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapName: Nivel 2
   sceneName: TestScene
+  score0:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  score1:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  score2:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  averageScore0: 0
+  averageScore1: 0
+  averageScore2: 0

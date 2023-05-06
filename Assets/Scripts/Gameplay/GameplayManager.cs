@@ -18,6 +18,7 @@ public class GameplayManager : MonoBehaviour
     [SerializeField] private int difficulty;
     [SerializeField] private float time;
 
+    Timeout timer;
     private int finishMode;
     private string finishModePrefs="finish";
 
@@ -40,7 +41,7 @@ public class GameplayManager : MonoBehaviour
     void Start()
     {
         difficulty = PlayerPrefs.GetInt("difficulty");
-        Timeout timer= FindAnyObjectByType<Timeout>();
+        timer= FindAnyObjectByType<Timeout>();
         InitializeObstacles();
         timer.StartCount(time);
         map = SceneManager.GetActiveScene().name;
@@ -104,6 +105,11 @@ public class GameplayManager : MonoBehaviour
     private void SaveData()
     {
         PlayerPrefs.SetInt(finishModePrefs, finishMode);
+
+        if(finishMode == 0) 
+        {
+            PlayerPrefs.SetFloat("lastScore", timer.GetTime());
+        }
     }
 
     public int GetFinishMode()
@@ -111,4 +117,5 @@ public class GameplayManager : MonoBehaviour
         return finishMode;
     }
 
+    
 }

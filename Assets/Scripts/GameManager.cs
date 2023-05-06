@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using TMPro;
+using JetBrains.Annotations;
+
 public class GameManager : MonoBehaviour
 {
     public event Action OnMainMenu; //Estado en menú principal
@@ -10,7 +12,7 @@ public class GameManager : MonoBehaviour
     public event Action OnLevelMenu; //Estado en menú de niveles
     public event Action OnCreditsMenu; //Estado en menú de créditos
     public event Action OnScoreMenu;
-
+    public event Action ChangeDifficulty;
 
     public static GameManager instance; //Instancia del script (Patron Singleton)
 
@@ -45,7 +47,6 @@ public class GameManager : MonoBehaviour
     {
         //Comprueba que existe algo suscrito al evento OnMainMenu
         OnMainMenu?.Invoke();
-        PlayerPrefs.SetInt("finish", -1);
 
     }
 
@@ -64,7 +65,7 @@ public class GameManager : MonoBehaviour
        
         OnLevelMenu?.Invoke();
 
-        PlayerPrefs.SetInt("finish", -1);
+        //PlayerPrefs.SetInt("finish", -1);
 
     }
 
@@ -86,8 +87,14 @@ public class GameManager : MonoBehaviour
     //Cierra el juego
     public void CloseGame()
     {
-        PlayerPrefs.SetInt("finish",-1);
+        PlayerPrefs.DeleteKey("finish");
+        //PlayerPrefs.DeleteAll();
         Application.Quit();
+    }
+
+    public void Difficulty()
+    {
+        ChangeDifficulty?.Invoke();
     }
 
     private void LoadData()
@@ -102,11 +109,11 @@ public class GameManager : MonoBehaviour
             case 2: difficultyLabel.SetText("Dificil"); break;
         }
 
-        finishMode = PlayerPrefs.GetInt("finish");
+        finishMode = PlayerPrefs.GetInt("finish",-1);
         
         if(finishMode==0 )
         {
-            
+            FindAnyObjectByType<MapManager>().RecalculateScores();
         }
 
         else if(finishMode==1 ) 
@@ -123,6 +130,8 @@ public class GameManager : MonoBehaviour
         {
             MainMenu();
         }
+
+        PlayerPrefs.SetInt("finish", -1);
     }
 
 }
