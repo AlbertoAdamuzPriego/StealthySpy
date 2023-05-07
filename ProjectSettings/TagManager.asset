@@ -8,6 +8,7 @@ TagManager:
   - MiddleBackground
   - NearBackground
   - Obstacles
+  - Scores
   layers:
   - Default
   - TransparentFX

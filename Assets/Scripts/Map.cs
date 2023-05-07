@@ -37,53 +37,18 @@ public class Map : ScriptableObject
         {
             case 0:
                 score0 = newScore;
-                averageScore0 = 0;
-                Debug.Log("Average");
-                foreach (float num in score0)
-                {
-                    if(num!=0)
-                    {
-                        i++;
-                        averageScore0 += num;
-                    }
-                   
-                }
-
-                averageScore0 /= i;
                 break;
 
             case 1:
                 score1 = newScore;
-                averageScore1 = 0;
-                foreach (float num in score1)
-                {
-                    if(num!=0)
-                    {
-                        i++;
-                        averageScore1 += num;
-                    }
-                    
-                }
-
-                averageScore1 /= i;
                 break;
 
             case 2:
                 score2 = newScore;
-                averageScore2 = 0;
-                foreach (float num in score2)
-                {
-                    if(num!=0)
-                    {
-                        i++;
-                        averageScore2 += num;
-                    }
-                    
-                }
-
-                averageScore2 /= i;
                 break;
         }
+
+        CalculateAverages();
        
     }
 
@@ -109,9 +74,9 @@ public class Map : ScriptableObject
             PlayerPrefs.SetFloat("Score2" + mapName + i, score2[i]);
         }
 
-        PlayerPrefs.SetFloat("Average0" + mapName, averageScore0);
-        PlayerPrefs.SetFloat("Average1" + mapName, averageScore1);
-        PlayerPrefs.SetFloat("Average2" + mapName, averageScore2);
+        PlayerPrefs.DeleteKey("Average0" + mapName);
+        PlayerPrefs.DeleteKey("Average1" + mapName);
+        PlayerPrefs.DeleteKey("Average2" + mapName);
 
         PlayerPrefs.Save();
 
@@ -127,9 +92,8 @@ public class Map : ScriptableObject
             score2[i] = PlayerPrefs.GetFloat("Score2" + mapName + i, 0);
         }
 
-        PlayerPrefs.GetFloat("Average0" + mapName, 0);
-        PlayerPrefs.GetFloat("Average1" + mapName, 0);
-        PlayerPrefs.GetFloat("Average2" + mapName, 0);
+        CalculateAverages();
+
     }
 
     public float[] GetBestTime()
@@ -152,5 +116,63 @@ public class Map : ScriptableObject
 
 
         return times;
+    }
+
+    private void CalculateAverages()
+    {
+        int i=0;
+       
+              
+        averageScore0 = 0;
+        foreach (float num in score0)
+        {
+            if (num != 0)
+            {
+                i++;
+                averageScore0 += num;
+            }
+
+        }
+
+        if(i>0)
+            averageScore0 /= i;
+        else 
+            averageScore0 = 0;
+
+       i = 0;
+       averageScore1 = 0;
+       foreach (float num in score1)
+       {
+        if (num != 0)
+        {
+            i++;
+            averageScore1 += num;
+        }
+
+       }
+
+       if(i>0)
+        averageScore1 /= i;
+               
+       else
+        averageScore1 = 0;
+
+        i = 0;
+        averageScore2 = 0;
+        foreach (float num in score2)
+        {
+           if (num != 0)
+            {
+                 i++;
+                 averageScore2 += num;
+            }
+
+        }
+
+        if(i>0)
+            averageScore2 /= i;
+        else
+            averageScore2 = 0;
+        
     }
 }

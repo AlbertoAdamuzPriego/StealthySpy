@@ -55,16 +55,46 @@ public class MapButton : MonoBehaviour
 
         switch(difficulty)
         {
-            case 0: transform.GetChild(2).GetComponent<TMP_Text>().text = TimeSpan.FromSeconds(bestTime[0]).ToString(@"mm\:ss");
-                transform.GetChild(3).GetComponent<TMP_Text>().text = TimeSpan.FromSeconds(averageTime[0]).ToString(@"mm\:ss");
+            case 0:
+                if (bestTime[0] != 0)
+                {
+                    transform.GetChild(2).GetComponent<TMP_Text>().text = TimeSpan.FromSeconds(bestTime[0]).ToString(@"mm\:ss");
+                    transform.GetChild(3).GetComponent<TMP_Text>().text = TimeSpan.FromSeconds(averageTime[0]).ToString(@"mm\:ss");
+                }
+
+                else
+                {
+                    transform.GetChild(2).GetComponent<TMP_Text>().text = "--:--";
+                    transform.GetChild(3).GetComponent<TMP_Text>().text = "--:--";
+                }
                 break;
             case 1:
-                transform.GetChild(2).GetComponent<TMP_Text>().text = TimeSpan.FromSeconds(bestTime[1]).ToString(@"mm\:ss");
-                transform.GetChild(3).GetComponent<TMP_Text>().text = TimeSpan.FromSeconds(averageTime[1]).ToString(@"mm\:ss");
+                if (bestTime[1] != 0)
+                {
+                    transform.GetChild(2).GetComponent<TMP_Text>().text = TimeSpan.FromSeconds(bestTime[1]).ToString(@"mm\:ss");
+                    transform.GetChild(3).GetComponent<TMP_Text>().text = TimeSpan.FromSeconds(averageTime[1]).ToString(@"mm\:ss");
+                }
+
+                else
+                {
+                    transform.GetChild(2).GetComponent<TMP_Text>().text = "--:--";
+                    transform.GetChild(3).GetComponent<TMP_Text>().text = "--:--";
+                }
+                
                 break;
             case 2:
-                transform.GetChild(2).GetComponent<TMP_Text>().text = TimeSpan.FromSeconds(bestTime[2]).ToString(@"mm\:ss");
-                transform.GetChild(3).GetComponent<TMP_Text>().text = TimeSpan.FromSeconds(averageTime[2]).ToString(@"mm\:ss");
+                if (bestTime[2] != 0)
+                {
+                    transform.GetChild(2).GetComponent<TMP_Text>().text = TimeSpan.FromSeconds(bestTime[2]).ToString(@"mm\:ss");
+                    transform.GetChild(3).GetComponent<TMP_Text>().text = TimeSpan.FromSeconds(averageTime[2]).ToString(@"mm\:ss");
+                }
+
+                else
+                {
+                    transform.GetChild(2).GetComponent<TMP_Text>().text = "--:--";
+                    transform.GetChild(3).GetComponent<TMP_Text>().text = "--:--";
+                }
+                
                 break;
         }
       

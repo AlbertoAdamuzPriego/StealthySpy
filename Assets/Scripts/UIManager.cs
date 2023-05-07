@@ -10,7 +10,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject mainMenuCanvas;
     [SerializeField] private GameObject settingsMenuCanvas;
     [SerializeField] private GameObject levelMenuCanvas;
-    
+    [SerializeField] private GameObject scoreMenuCanvas;
+
     void Start()
     {
         //Suscribimos la funcion activateMainMenu al evento OnMainMenu
@@ -21,6 +22,8 @@ public class UIManager : MonoBehaviour
 
         //Suscribimos la funcion activateLevelMenu al evento OnLevelMenu
         GameManager.instance.OnLevelMenu += activateLevelMenu;
+
+        GameManager.instance.OnScoreMenu += activateScoreMenu;
     }
 
     private void activateMainMenu()
@@ -43,6 +46,12 @@ public class UIManager : MonoBehaviour
         levelMenuCanvas.transform.GetChild(1).transform.DOScale(new Vector3(0, 0, 0), 0.3f);
         levelMenuCanvas.transform.GetChild(2).transform.DOScale(new Vector3(0, 0, 0), 0.3f);
         levelMenuCanvas.transform.GetChild(3).transform.DOScale(new Vector3(0, 0, 0), 0.3f);
+
+        scoreMenuCanvas.transform.GetChild(0).transform.DOScale(new Vector3(0, 0, 0), 0f);
+        scoreMenuCanvas.transform.GetChild(1).transform.DOScale(new Vector3(0, 0, 0), 0f);
+        scoreMenuCanvas.transform.GetChild(2).transform.DOScale(new Vector3(0, 0,0), 0f);
+        scoreMenuCanvas.transform.GetChild(3).transform.DOScale(new Vector3(0, 0, 0), 0f);
+        scoreMenuCanvas.transform.GetChild(4).transform.DOScale(new Vector3(0, 0, 0), 0f);
 
 
 
@@ -105,6 +114,24 @@ public class UIManager : MonoBehaviour
            // levelMenuCanvas.GetComponentInChildren<HorizontalLayoutGroup>().gameObject.GetComponent<RectTransform>().DOMoveX(320f, 0.01f);
         }
      
+    }
+
+    private void activateScoreMenu()
+    {
+        mainMenuCanvas.transform.GetChild(0).transform.DOScale(new Vector3(0, 0, 0), 0.3f);
+        mainMenuCanvas.transform.GetChild(1).transform.DOScale(new Vector3(0, 0, 0), 0.3f);
+        mainMenuCanvas.transform.GetChild(2).transform.DOScale(new Vector3(0, 0, 0), 0.3f);
+        mainMenuCanvas.transform.GetChild(3).transform.DOScale(new Vector3(0, 0, 0), 0.3f);
+        mainMenuCanvas.transform.GetChild(4).transform.DOScale(new Vector3(0, 0, 0), 0.3f);
+        mainMenuCanvas.transform.GetChild(5).transform.DOScale(new Vector3(0, 0, 0), 0.3f);
+        mainMenuCanvas.transform.GetChild(6).transform.DOScale(new Vector3(0, 0, 0), 0.3f);
+
+        scoreMenuCanvas.transform.GetChild(0).transform.DOScale(new Vector3(1, 1, 1), 0f);
+        scoreMenuCanvas.transform.GetChild(1).transform.DOScale(new Vector3(1, 1, 1), 0f);
+        scoreMenuCanvas.transform.GetChild(2).transform.DOScale(new Vector3(1, 1, 1), 0f);
+        scoreMenuCanvas.transform.GetChild(3).transform.DOScale(new Vector3(1, 1, 1), 0f);
+        scoreMenuCanvas.transform.GetChild(4).transform.DOScale(new Vector3(2, 2, 1), 0f);
+
     }
 
 }

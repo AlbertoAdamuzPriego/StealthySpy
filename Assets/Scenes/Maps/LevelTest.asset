@@ -15,10 +15,10 @@ MonoBehaviour:
   mapName: Nivel de prueba
   sceneName: TestScene
   score0:
-  - 2.9465103
-  - 3.607605
-  - 3.8003616
-  - 6.5567474
+  - 0
+  - 0
+  - 0
+  - 0
   - 0
   - 0
   - 0
@@ -26,8 +26,8 @@ MonoBehaviour:
   - 0
   - 0
   score1:
-  - 4.4235306
-  - 6.7834854
+  - 0
+  - 0
   - 0
   - 0
   - 0
@@ -47,6 +47,6 @@ MonoBehaviour:
   - 0
   - 0
   - 0
-  averageScore0: 4.227806
-  averageScore1: 5.603508
+  averageScore0: 0
+  averageScore1: 0
   averageScore2: 0

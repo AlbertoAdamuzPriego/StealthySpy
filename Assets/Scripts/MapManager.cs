@@ -34,7 +34,7 @@ public class MapManager : MonoBehaviour
             
             MapButton button;
             button = Instantiate(mapButton, buttonContainer.transform);
-            map.LoadScore();
+            //map.LoadScore();
             button.MapName = map.mapName;
             button.SceneName = map.sceneName;
             button.SetBestTime(map.GetBestTime());
@@ -64,7 +64,7 @@ public class MapManager : MonoBehaviour
 
         foreach(Map map in maps)
         {
-            Debug.Log(map.mapName);
+        
             if (mapName == map.mapName) 
             {
 
@@ -139,5 +139,10 @@ public class MapManager : MonoBehaviour
 
 
         return vector;
+    }
+
+    public List<Map> GetMaps()
+    {
+        return maps;
     }
 }
