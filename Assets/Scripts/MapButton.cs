@@ -38,7 +38,7 @@ public class MapButton : MonoBehaviour
 
         var button = GetComponent<Button>();
         button.onClick.AddListener(OpenMap);
-
+        UpdateDifficulty();
         GameManager.instance.ChangeDifficulty += UpdateDifficulty;
         GameManager.instance.OnLevelMenu += UpdateDifficulty;
     }
@@ -51,7 +51,7 @@ public class MapButton : MonoBehaviour
 
     private void UpdateDifficulty()
     {
-        int difficulty = PlayerPrefs.GetInt("difficulty");
+        int difficulty = PlayerPrefs.GetInt("difficulty",0);
 
         switch(difficulty)
         {

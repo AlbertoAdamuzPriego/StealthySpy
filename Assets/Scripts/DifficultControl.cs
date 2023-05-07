@@ -11,7 +11,7 @@ public class DifficultControl : MonoBehaviour
     [SerializeField] private TMP_Text label;
     private void Start()
     {
-        int difficulty=PlayerPrefs.GetInt("difficulty");
+        int difficulty=PlayerPrefs.GetInt("difficulty",0);
 
         switch (difficulty)
         {

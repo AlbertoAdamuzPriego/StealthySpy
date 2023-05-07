@@ -16,6 +16,8 @@ public class MapManager : MonoBehaviour
 
     void Start()
     {
+        //GameManager.instance.OnMainMenu += CreateButton;
+        //GameManager.instance.OnLevelMenu += RecalculateScores;
         GameManager.instance.OnLevelMenu += CreateButton;
 
         foreach (Map map in maps) 
@@ -26,11 +28,13 @@ public class MapManager : MonoBehaviour
 
     private void CreateButton()
     {
+        
         foreach(Map map in maps)
         {
             
             MapButton button;
             button = Instantiate(mapButton, buttonContainer.transform);
+            map.LoadScore();
             button.MapName = map.mapName;
             button.SceneName = map.sceneName;
             button.SetBestTime(map.GetBestTime());
@@ -48,57 +52,72 @@ public class MapManager : MonoBehaviour
 
     public void RecalculateScores()
     {
+       
         string mapName = PlayerPrefs.GetString("lastMap");
-        float newScore = PlayerPrefs.GetFloat("lastScore");
+        float newScore = PlayerPrefs.GetFloat("lastScore",-1);
         int difficulty = PlayerPrefs.GetInt("difficulty");
 
-        Debug.Log("newScore " + newScore);
+        Debug.Log(newScore);
+
+        if (newScore == -1)
+            return;
+
         foreach(Map map in maps)
         {
-            Debug.Log(mapName);
-            if(mapName == map.mapName) 
+            Debug.Log(map.mapName);
+            if (mapName == map.mapName) 
             {
-                switch(difficulty)
-                {
 
-                }
                 float[] mapScore = map.GetScoreList(difficulty);
                 
                 for (int i=0;i<mapScore.Length;i++)
                 {
-                    Debug.Log("i " + i);
-                    Debug.Log("map["+i+"] "+mapScore[i]);
+                    Debug.Log(i);
                     if(newScore < mapScore[i] || mapScore[i]==0)
                     {
-                        Debug.Log("Dentro");
+                  
                         if (i>0)
                         {
-                            Debug.Log("Dentro2");
+                          
                             if (newScore != mapScore[i - 1])
                             {
-                                Debug.Log("Dentro3");
+       
                                 map.SetScoreList(InsertNewElementInVector(mapScore, i, newScore),difficulty);
                                 map.SaveScore();
+                                
+                             
                                 return;
                                 
                             }
 
                             else
+                            {
+                                
                                 return;
+                            }
+                                
                            
                         }
 
                         else
                         {
+                          
                             if (newScore != mapScore[0])
                             {
+                                
+                         
                                 map.SetScoreList(InsertNewElementInVector(mapScore, i, newScore),difficulty);
                                 map.SaveScore();
+                                
                                 return;
                             }
 
                             else
+                            {
+                                
                                 return;
+                            }
+                                
                         }
                        
                     }

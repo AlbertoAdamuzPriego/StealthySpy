@@ -32,18 +32,24 @@ public class Map : ScriptableObject
     public void SetScoreList(float[] newScore, int difficulty)
     {
         Assert.AreEqual(10, newScore.Length);
-
+        float i=0;
         switch(difficulty)
         {
             case 0:
                 score0 = newScore;
                 averageScore0 = 0;
+                Debug.Log("Average");
                 foreach (float num in score0)
                 {
-                    averageScore0 += num;
+                    if(num!=0)
+                    {
+                        i++;
+                        averageScore0 += num;
+                    }
+                   
                 }
 
-                averageScore0 /= score0.Length;
+                averageScore0 /= i;
                 break;
 
             case 1:
@@ -51,10 +57,15 @@ public class Map : ScriptableObject
                 averageScore1 = 0;
                 foreach (float num in score1)
                 {
-                    averageScore1 += num;
+                    if(num!=0)
+                    {
+                        i++;
+                        averageScore1 += num;
+                    }
+                    
                 }
 
-                averageScore1 /= score1.Length;
+                averageScore1 /= i;
                 break;
 
             case 2:
@@ -62,10 +73,15 @@ public class Map : ScriptableObject
                 averageScore2 = 0;
                 foreach (float num in score2)
                 {
-                    averageScore2 += num;
+                    if(num!=0)
+                    {
+                        i++;
+                        averageScore2 += num;
+                    }
+                    
                 }
 
-                averageScore2 /= score2.Length;
+                averageScore2 /= i;
                 break;
         }
        
@@ -87,6 +103,7 @@ public class Map : ScriptableObject
     {
         for(int i=0;i<score0.Length; i++)
         {
+            Debug.Log(score0[i]);
             PlayerPrefs.SetFloat("Score0" + mapName + i, score0[i]);
             PlayerPrefs.SetFloat("Score1" + mapName + i, score1[i]);
             PlayerPrefs.SetFloat("Score2" + mapName + i, score2[i]);
@@ -97,6 +114,7 @@ public class Map : ScriptableObject
         PlayerPrefs.SetFloat("Average2" + mapName, averageScore2);
 
         PlayerPrefs.Save();
+
     }
 
     public void LoadScore()
@@ -104,14 +122,14 @@ public class Map : ScriptableObject
 
         for (int i = 0; i < score0.Length; i++)
         {
-            score0[i]=PlayerPrefs.GetFloat("Score" + mapName + i, 0);
+            score0[i]=PlayerPrefs.GetFloat("Score0" + mapName + i, 0);
             score1[i] = PlayerPrefs.GetFloat("Score1" + mapName + i, 0);
             score2[i] = PlayerPrefs.GetFloat("Score2" + mapName + i, 0);
         }
 
         PlayerPrefs.GetFloat("Average0" + mapName, 0);
-        PlayerPrefs.GetFloat("Average1" + mapName, 1);
-        PlayerPrefs.GetFloat("Average2" + mapName, 2);
+        PlayerPrefs.GetFloat("Average1" + mapName, 0);
+        PlayerPrefs.GetFloat("Average2" + mapName, 0);
     }
 
     public float[] GetBestTime()

@@ -88,7 +88,7 @@ public class GameManager : MonoBehaviour
     public void CloseGame()
     {
         PlayerPrefs.DeleteKey("finish");
-        //PlayerPrefs.DeleteAll();
+        PlayerPrefs.DeleteAll();
         Application.Quit();
     }
 
@@ -114,6 +114,7 @@ public class GameManager : MonoBehaviour
         if(finishMode==0 )
         {
             FindAnyObjectByType<MapManager>().RecalculateScores();
+            LevelMenu();
         }
 
         else if(finishMode==1 ) 
@@ -123,11 +124,13 @@ public class GameManager : MonoBehaviour
 
         else if(finishMode==2 )
         {
-            LevelMenu(); 
+            MainMenu();
+            //LevelMenu(); 
         }
 
         else
         {
+
             MainMenu();
         }
 
