@@ -30,7 +30,7 @@ public class UIManager : MonoBehaviour
     {
         mainMenuCanvas.transform.GetChild(0).transform.DOScale(new Vector3(1, 1, 1), 0.3f);
         mainMenuCanvas.transform.GetChild(1).transform.DOScale(new Vector3(1, 1, 1), 0.3f);
-        mainMenuCanvas.transform.GetChild(2).transform.DOScale(new Vector3(2, 2, 1), 0.3f);
+        mainMenuCanvas.transform.GetChild(2).transform.DOScale(new Vector3(1.5f, 1.5f, 1), 0.3f);
         mainMenuCanvas.transform.GetChild(3).transform.DOScale(new Vector3(2, 2, 1), 0.3f);
         mainMenuCanvas.transform.GetChild(4).transform.DOScale(new Vector3(2, 2, 1), 0.3f);
         mainMenuCanvas.transform.GetChild(5).transform.DOScale(new Vector3(2, 2, 1), 0.3f);
@@ -129,8 +129,8 @@ public class UIManager : MonoBehaviour
         scoreMenuCanvas.transform.GetChild(0).transform.DOScale(new Vector3(1, 1, 1), 0f);
         scoreMenuCanvas.transform.GetChild(1).transform.DOScale(new Vector3(1, 1, 1), 0f);
         scoreMenuCanvas.transform.GetChild(2).transform.DOScale(new Vector3(1, 1, 1), 0f);
-        scoreMenuCanvas.transform.GetChild(3).transform.DOScale(new Vector3(1, 1, 1), 0f);
-        scoreMenuCanvas.transform.GetChild(4).transform.DOScale(new Vector3(2, 2, 1), 0f);
+        scoreMenuCanvas.transform.GetChild(3).transform.DOScale(new Vector3(0.9f, 0.9f, 1), 0f);
+        scoreMenuCanvas.transform.GetChild(4).transform.DOScale(new Vector3(1, 1, 1), 0f);
 
     }
 
