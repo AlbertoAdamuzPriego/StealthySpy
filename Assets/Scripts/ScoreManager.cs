@@ -11,7 +11,7 @@ public class ScoreManager : MonoBehaviour
 {
     [SerializeField] private GameObject buttonContainer;
     [SerializeField] private ScoreButton scoreButton;
-    [SerializeField] private GameObject scrollbar;
+    
 
     void Start()
     {

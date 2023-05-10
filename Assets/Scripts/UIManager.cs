@@ -46,6 +46,8 @@ public class UIManager : MonoBehaviour
         levelMenuCanvas.transform.GetChild(1).transform.DOScale(new Vector3(0, 0, 0), 0.3f);
         levelMenuCanvas.transform.GetChild(2).transform.DOScale(new Vector3(0, 0, 0), 0.3f);
         levelMenuCanvas.transform.GetChild(3).transform.DOScale(new Vector3(0, 0, 0), 0.3f);
+        levelMenuCanvas.transform.GetChild(4).transform.DOScale(new Vector3(0, 0, 1), 0.3f);
+        levelMenuCanvas.transform.GetChild(5).transform.DOScale(new Vector3(0, 0, 1), 0.3f);
 
         scoreMenuCanvas.transform.GetChild(0).transform.DOScale(new Vector3(0, 0, 0), 0f);
         scoreMenuCanvas.transform.GetChild(1).transform.DOScale(new Vector3(0, 0, 0), 0f);
@@ -70,7 +72,7 @@ public class UIManager : MonoBehaviour
 
     private void activateLevelMenu()
     {
-        if(GameManager.instance.finishMode == -1)
+       if(GameManager.instance.finishMode == -1)
         {
             mainMenuCanvas.transform.GetChild(0).transform.DOScale(new Vector3(0, 0, 0), 0.3f);
             mainMenuCanvas.transform.GetChild(1).transform.DOScale(new Vector3(0, 0, 0), 0.3f);
@@ -88,18 +90,22 @@ public class UIManager : MonoBehaviour
 
 
             levelMenuCanvas.transform.GetChild(0).transform.DOScale(new Vector3(1, 1, 1), 0.3f);
-            levelMenuCanvas.transform.GetChild(1).transform.DOScale(new Vector3(2, 2, 1), 0.3f);
+            levelMenuCanvas.transform.GetChild(1).transform.DOScale(new Vector3(0.5f, 0.5f, 1), 0.3f);
             levelMenuCanvas.transform.GetChild(2).transform.DOScale(new Vector3(1, 1, 1), 0.3f);
             levelMenuCanvas.transform.GetChild(3).transform.DOScale(new Vector3(5, 7, 1), 0.3f);
+            levelMenuCanvas.transform.GetChild(4).transform.DOScale(new Vector3(-1, 1, 1), 0f);
+            levelMenuCanvas.transform.GetChild(5).transform.DOScale(new Vector3(1, 1, 1), 0f);
 
         }
         
         else
         {
             levelMenuCanvas.transform.GetChild(0).transform.DOScale(new Vector3(1, 1, 1), 0f);
-            levelMenuCanvas.transform.GetChild(1).transform.DOScale(new Vector3(2, 2, 1), 0f);
+            levelMenuCanvas.transform.GetChild(1).transform.DOScale(new Vector3(0.5f, 0.5f, 1), 0.3f);
             levelMenuCanvas.transform.GetChild(2).transform.DOScale(new Vector3(1, 1, 1), 0f);
             levelMenuCanvas.transform.GetChild(3).transform.DOScale(new Vector3(5, 7, 1), 0f);
+            levelMenuCanvas.transform.GetChild(4).transform.DOScale(new Vector3(1, 1, 1), 0f);
+            levelMenuCanvas.transform.GetChild(5).transform.DOScale(new Vector3(1, 1, 1), 0f);
 
 
             mainMenuCanvas.transform.GetChild(0).transform.DOScale(new Vector3(0, 0, 0), 0f);
@@ -130,7 +136,7 @@ public class UIManager : MonoBehaviour
         scoreMenuCanvas.transform.GetChild(1).transform.DOScale(new Vector3(1, 1, 1), 0f);
         scoreMenuCanvas.transform.GetChild(2).transform.DOScale(new Vector3(1, 1, 1), 0f);
         scoreMenuCanvas.transform.GetChild(3).transform.DOScale(new Vector3(0.9f, 0.9f, 1), 0f);
-        scoreMenuCanvas.transform.GetChild(4).transform.DOScale(new Vector3(1, 1, 1), 0f);
+        scoreMenuCanvas.transform.GetChild(4).transform.DOScale(new Vector3(0.5f, 0.5f, 1), 0f);
 
     }
 
