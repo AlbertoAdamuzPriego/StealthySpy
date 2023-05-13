@@ -35,8 +35,8 @@ public class UIGameplayManager : MonoBehaviour
         gameOverCanvas.transform.GetChild(1).transform.DOScale(new Vector3(1, 1, 1), 1f);
 
         StartCoroutine(Pausar());
-        gameOverCanvas.transform.GetChild(2).transform.DOScale(new Vector3(1, 1, 1), 2f);
-        gameOverCanvas.transform.GetChild(3).transform.DOScale(new Vector3(1, 1, 1), 2f);
+        gameOverCanvas.transform.GetChild(2).transform.DOScale(new Vector3(1.5f, 1.5f, 1), 2f);
+        gameOverCanvas.transform.GetChild(3).transform.DOScale(new Vector3(1.5f, 1.5f, 1), 2f);
     }
 
     IEnumerator Pausar()

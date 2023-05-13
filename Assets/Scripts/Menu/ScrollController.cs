@@ -41,6 +41,7 @@ public class ScrollController : MonoBehaviour
     public void Next()
     {
         content.anchoredPosition = (currentStep-1) * new Vector2(-offset, 0);
+        Debug.Log(maxSteps);
         if(currentStep < maxSteps) 
         {
             currentStep++;
