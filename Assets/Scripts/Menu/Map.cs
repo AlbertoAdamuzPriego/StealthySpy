@@ -68,7 +68,7 @@ public class Map : ScriptableObject
     {
         for(int i=0;i<score0.Length; i++)
         {
-            Debug.Log(score0[i]);
+ 
             PlayerPrefs.SetFloat("Score0" + mapName + i, score0[i]);
             PlayerPrefs.SetFloat("Score1" + mapName + i, score1[i]);
             PlayerPrefs.SetFloat("Score2" + mapName + i, score2[i]);

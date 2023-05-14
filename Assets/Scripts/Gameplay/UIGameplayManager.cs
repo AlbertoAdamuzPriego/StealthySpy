@@ -1,6 +1,8 @@
 using DG.Tweening;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class UIGameplayManager : MonoBehaviour
@@ -26,6 +28,15 @@ public class UIGameplayManager : MonoBehaviour
     {
         gameplayCanvas.SetActive(false);
         pauseCanvas.SetActive(true);
+
+        float bestTime = PlayerPrefs.GetFloat("Score0" + PlayerPrefs.GetString("lastMap")+ "0");
+   
+        if(bestTime > 0) 
+        {
+            pauseCanvas.transform.GetChild(6).transform.GetChild(0).GetComponentInChildren<TMP_Text>().text = TimeSpan.FromSeconds(bestTime).ToString(@"mm\:ss") + "\n";
+        }
+
+        pauseCanvas.transform.GetChild(5).transform.GetChild(0).GetComponent<TMP_Text>().text = TimeSpan.FromSeconds(FindAnyObjectByType<Timeout>().GetTime()).ToString(@"mm\:ss") + "\n";
     }
 
     private void ActivateGameOverCanvas()

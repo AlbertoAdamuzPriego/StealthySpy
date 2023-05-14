@@ -117,5 +117,9 @@ public class GameplayManager : MonoBehaviour
         return finishMode;
     }
 
+    public string GetMapName()
+    {
+        return map;
+    }
     
 }
