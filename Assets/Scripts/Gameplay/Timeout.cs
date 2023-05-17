@@ -16,6 +16,7 @@ public class Timeout:MonoBehaviour
         GameplayManager.instance.OnGameplay += ReanudeCount;
         GameplayManager.instance.OnPause += PauseCount;
         GameplayManager.instance.OnFinished += PauseCount;
+        GameplayManager.instance.OnCompleted += PauseCount;
     }
     public void StartCount(float MaxTime)
     {

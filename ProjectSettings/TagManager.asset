@@ -9,6 +9,7 @@ TagManager:
   - NearBackground
   - Obstacles
   - Scores
+  - transporter
   layers:
   - Default
   - TransparentFX
@@ -19,7 +20,7 @@ TagManager:
   - Ground
   - Enemy
   - Player
-  - 
+  - Transport
   - 
   - 
   - 

@@ -12,6 +12,7 @@ public class GameplayManager : MonoBehaviour
     public event Action OnPause; 
     public event Action OnFinished;
     public event Action OnGameOver;
+    public event Action OnCompleted;
 
     [SerializeField] string map;
 
@@ -67,9 +68,17 @@ public class GameplayManager : MonoBehaviour
     {
         finishMode = mode;
         OnFinished?.Invoke();
-        Debug.Log("FINISH");
+    
 
         SceneManager.LoadScene("MainScene");
+    }
+
+    public void Completed()
+    {
+        
+        OnCompleted?.Invoke();
+
+
     }
     public void GameOver()
     {
@@ -121,5 +130,5 @@ public class GameplayManager : MonoBehaviour
     {
         return map;
     }
-    
+
 }

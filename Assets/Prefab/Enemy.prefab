@@ -100,6 +100,7 @@ MonoBehaviour:
   - {x: 33.03, y: 3.5}
   minDistance: 1
   waitTime: 3
+  incapacitedTime: 0
   fov: {fileID: 1620127460309222787}
 --- !u!212 &1620127459927801083
 SpriteRenderer:
@@ -242,7 +243,7 @@ MonoBehaviour:
   initialAngle: 40
   obstacleLayerMask:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 576
   segments: 30
   originPoint: {fileID: 1620127458661445206}
   fovMaterial: {fileID: 2100000, guid: e3a75ae03aca5fd4f8e882b4406cf2ae, type: 2}

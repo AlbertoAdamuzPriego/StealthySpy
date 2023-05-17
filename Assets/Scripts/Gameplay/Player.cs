@@ -20,8 +20,10 @@ public class Player : MonoBehaviour
     [SerializeField] float jumpForce; //Fuerza de salto
     [SerializeField] Transform groundCheckPoint; //Punto de detección del suelo
     [SerializeField] LayerMask whatIsGround; //Capa del suelo
+    [SerializeField] LayerMask whatIsTransporter; //Capa del suelo
     private bool isGrounded; //Indica si el jugador está en el suelo
-
+    private float offset=0;
+    private bool transport = false;
 
     [SerializeField] GameObject incapacitedButton;
     private BoxCollider2D incapacitedArea;
@@ -34,21 +36,42 @@ public class Player : MonoBehaviour
         animator = GetComponent<Animator>();
         SR = GetComponent<SpriteRenderer>();
         whatIsGround = LayerMask.GetMask("Ground");
+        whatIsTransporter = LayerMask.GetMask("Transport");
         incapacitedArea = GetComponentInChildren<BoxCollider2D>();
         visible = true;
+
+        GameplayManager.instance.OnPause += Pause;
+        GameplayManager.instance.OnGameplay += Play;
     }
 
     // Update is called once per frame
     void Update()
     {
+       
+
+        if (Physics2D.OverlapCircle(groundCheckPoint.position, 0.2f, whatIsTransporter))
+        {
+            isGrounded = true;
+            offset = -0.2f;
+            transport = true;
+        }
+
+        else
+        {
+            transport = false;
+            //Comprobamos si el jugador está en el suelo
+            isGrounded = Physics2D.OverlapCircle(groundCheckPoint.position, 0.2f, whatIsGround);
+        }
+
+
         //Obtenemos el input horizontal del controlador
         float horizontalInput = joystick.Horizontal;
 
         //Movemos al jugador en el eje X
-        RB.velocity = new Vector2(moveSpeed * horizontalInput, RB.velocity.y);
+        RB.velocity = new Vector2(moveSpeed * (horizontalInput+offset), RB.velocity.y);
 
         //Cambiamos el sprite para que concuerde la dirección de movimiento con la dirección del sprite
-        if (RB.velocity.x < 0)
+        if (RB.velocity.x < 0 && horizontalInput<0)
         {
             SR.flipX = true;
             incapacitedArea.gameObject.transform.localScale = new Vector3(-1, 1, 1);
@@ -61,10 +84,10 @@ public class Player : MonoBehaviour
         }
 
 
-        //Comprobamos si el jugador está en el suelo
-        isGrounded = Physics2D.OverlapCircle(groundCheckPoint.position, 0.2f, whatIsGround);
-
         animator.SetFloat("moveSpeed", Mathf.Abs(RB.velocity.x));
+        animator.SetBool("isTransporter", transport);
+        animator.SetBool("isGrounded",isGrounded);
+        offset = 0;
 
         if(!visible)
         {
@@ -112,4 +135,13 @@ public class Player : MonoBehaviour
         }
     }
 
+    private void Pause()
+    {
+        RB.constraints = RigidbodyConstraints2D.FreezePosition;
+    }
+
+    private void Play()
+    {
+        RB.constraints = RigidbodyConstraints2D.FreezeRotation;
+    }
 }
