@@ -52,7 +52,7 @@ public class Player : MonoBehaviour
         if (Physics2D.OverlapCircle(groundCheckPoint.position, 0.2f, whatIsTransporter))
         {
             isGrounded = true;
-            offset = -0.2f;
+            offset = 0.2f;
             transport = true;
         }
 

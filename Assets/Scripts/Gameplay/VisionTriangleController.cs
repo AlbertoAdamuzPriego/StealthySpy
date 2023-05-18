@@ -59,9 +59,12 @@ public class VisionTriangleController : MonoBehaviour
             {
                 timeDetection += Time.deltaTime;
 
-                if (timeDetection > 0.5f)
+                if (timeDetection > 0.3f)
                 {
-
+                    
+                    collider.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
+                    collider.GetComponent<Player>().enabled = false;
+                    collider.GetComponent<Animator>().SetBool("finish", true);
                     GameplayManager.instance.GameOver();
 
                 }

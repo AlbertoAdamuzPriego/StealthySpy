@@ -12,11 +12,11 @@ public class SecurityCamera : MonoBehaviour
     private Quaternion startRotation;
     private Quaternion targetRotation;
     private float progress = 0f;
-    private bool playerIsDetected;
 
     [SerializeField] private float waitTime;
 
     private float timer;
+    private bool playerIsDetected;
 
     void Start()
     {
