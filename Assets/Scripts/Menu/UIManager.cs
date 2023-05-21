@@ -11,6 +11,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject settingsMenuCanvas;
     [SerializeField] private GameObject levelMenuCanvas;
     [SerializeField] private GameObject scoreMenuCanvas;
+    [SerializeField] private GameObject creditsMenuCanvas;
     private bool start = true;
 
     void Start()
@@ -25,6 +26,8 @@ public class UIManager : MonoBehaviour
         GameManager.instance.OnLevelMenu += activateLevelMenu;
 
         GameManager.instance.OnScoreMenu += activateScoreMenu;
+
+        GameManager.instance.OnCreditsMenu += activateCreditsMenu;
     }
 
     private void activateMainMenu()
@@ -40,6 +43,8 @@ public class UIManager : MonoBehaviour
         if (!start)
             settingsMenuCanvas.transform.DOMoveY(1000, 0.3f);
         settingsMenuCanvas.gameObject.SetActive(false);
+
+        creditsMenuCanvas.SetActive(false);
 
         levelMenuCanvas.transform.GetChild(0).transform.DOScale(new Vector3(0, 0, 0), 0.3f);
         levelMenuCanvas.transform.GetChild(1).transform.DOScale(new Vector3(0, 0, 0), 0.3f);
@@ -87,12 +92,6 @@ public class UIManager : MonoBehaviour
             mainMenuCanvas.transform.GetChild(5).transform.DOScale(new Vector3(0, 0, 0), 0.3f);
             mainMenuCanvas.transform.GetChild(6).transform.DOScale(new Vector3(0, 0, 0), 0.3f);
 
-            settingsMenuCanvas.transform.GetChild(0).transform.DOScale(new Vector3(0, 0, 0), 0.3f);
-            settingsMenuCanvas.transform.GetChild(1).transform.DOScale(new Vector3(0, 0, 0), 0.3f);
-            settingsMenuCanvas.transform.GetChild(2).transform.DOScale(new Vector3(0, 0, 0), 0.3f);
-            settingsMenuCanvas.transform.GetChild(3).transform.DOScale(new Vector3(0, 0, 0), 0.3f);
-            settingsMenuCanvas.transform.GetChild(4).transform.DOScale(new Vector3(0, 0, 0), 0.3f);
-
 
             levelMenuCanvas.transform.GetChild(0).transform.DOScale(new Vector3(1, 1, 1), 0.3f);
             levelMenuCanvas.transform.GetChild(1).transform.DOScale(new Vector3(1f, 1f, 1), 0.3f);
@@ -109,7 +108,7 @@ public class UIManager : MonoBehaviour
             levelMenuCanvas.transform.GetChild(1).transform.DOScale(new Vector3(1f, 1f, 1), 0.3f);
             levelMenuCanvas.transform.GetChild(2).transform.DOScale(new Vector3(1, 1, 1), 0f);
             levelMenuCanvas.transform.GetChild(3).transform.DOScale(new Vector3(3, 3, 1), 0f);
-            levelMenuCanvas.transform.GetChild(4).transform.DOScale(new Vector3(1, 1, 1), 0f);
+            levelMenuCanvas.transform.GetChild(4).transform.DOScale(new Vector3(-1, 1, 1), 0f);
             levelMenuCanvas.transform.GetChild(5).transform.DOScale(new Vector3(1, 1, 1), 0f);
 
 
@@ -145,6 +144,11 @@ public class UIManager : MonoBehaviour
         scoreMenuCanvas.transform.GetChild(5).transform.DOScale(new Vector3(-1f, 1f, 0), 0f);
         scoreMenuCanvas.transform.GetChild(6).transform.DOScale(new Vector3(1f, 1f, 0), 0f);
 
+    }
+
+    private void activateCreditsMenu()
+    {
+        creditsMenuCanvas.SetActive(true);
     }
 
 }

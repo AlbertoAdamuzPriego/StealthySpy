@@ -13,6 +13,10 @@ public class Player : MonoBehaviour
     [Header("Animator")]
     private Animator animator; //Controlador de las animaciones del jugador
     private SpriteRenderer SR; //Sprite del jugador
+    private AudioSource audioSource;
+    [SerializeField] private AudioClip punchAudio;
+    [SerializeField] private AudioClip walkAudio;
+
 
     [Header("Movement")]
     [SerializeField] Joystick joystick;
@@ -35,6 +39,7 @@ public class Player : MonoBehaviour
         RB = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         SR = GetComponent<SpriteRenderer>();
+        audioSource = GetComponent<AudioSource>();
         whatIsGround = LayerMask.GetMask("Ground");
         whatIsTransporter = LayerMask.GetMask("Transport");
         incapacitedArea = GetComponentInChildren<BoxCollider2D>();
@@ -42,6 +47,7 @@ public class Player : MonoBehaviour
 
         GameplayManager.instance.OnPause += Pause;
         GameplayManager.instance.OnGameplay += Play;
+        GameplayManager.instance.OnGameOver += StopSound;
     }
 
     // Update is called once per frame
@@ -69,6 +75,24 @@ public class Player : MonoBehaviour
 
         //Movemos al jugador en el eje X
         RB.velocity = new Vector2(moveSpeed * (horizontalInput+offset), RB.velocity.y);
+
+        if(horizontalInput+offset !=0)
+        {
+            if(!audioSource.isPlaying)
+            {
+                audioSource.clip = walkAudio;
+                audioSource.pitch = 2f;
+                audioSource.loop = true;
+                audioSource.Play();
+               
+            }
+        }
+
+        else
+        {
+            if(audioSource.clip.Equals(walkAudio)) 
+                audioSource.Stop();
+        }
 
         //Cambiamos el sprite para que concuerde la dirección de movimiento con la dirección del sprite
         if (RB.velocity.x < 0 && horizontalInput<0)
@@ -131,6 +155,11 @@ public class Player : MonoBehaviour
     {
         if(enemy != null)
         {
+            UnityEngine.Debug.Log("PUNCH");
+            audioSource.clip = punchAudio;
+            audioSource.pitch = 1f;
+            audioSource.loop = false;
+            audioSource.Play();
             enemy.GetComponent<EnemyController>().Incapacite();
         }
     }
@@ -143,5 +172,10 @@ public class Player : MonoBehaviour
     private void Play()
     {
         RB.constraints = RigidbodyConstraints2D.FreezeRotation;
+    }
+
+    private void StopSound()
+    {
+        audioSource.Stop();
     }
 }

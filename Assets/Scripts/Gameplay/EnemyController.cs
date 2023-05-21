@@ -126,6 +126,7 @@ public class EnemyController : MonoBehaviour
 
     public void Incapacite()
     {
+        GetComponent<AudioSource>().Play();
         if (!incapacitated)
         {
             incapacitated = true;

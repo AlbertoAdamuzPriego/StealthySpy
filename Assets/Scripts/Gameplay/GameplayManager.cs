@@ -17,7 +17,10 @@ public class GameplayManager : MonoBehaviour
     [SerializeField] string map;
 
     [SerializeField] private int difficulty;
-    [SerializeField] private float time;
+    [SerializeField] private float timeEasy;
+    [SerializeField] private float timeNormal;
+    [SerializeField] private float timeDifficult;
+    
 
     Timeout timer;
     private int finishMode;
@@ -44,7 +47,15 @@ public class GameplayManager : MonoBehaviour
         difficulty = PlayerPrefs.GetInt("difficulty");
         timer= FindAnyObjectByType<Timeout>();
         InitializeObstacles();
-        timer.StartCount(time);
+
+        switch(difficulty)
+        {
+            case 0: timer.StartCount(timeEasy); break;
+            case 1: timer.StartCount(timeNormal); break;
+            case 2: timer.StartCount(timeDifficult); break;
+
+        }
+
         map = SceneManager.GetActiveScene().name;
         OnFinished += SaveData;
         Gameplay();

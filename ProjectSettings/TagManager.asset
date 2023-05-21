@@ -10,6 +10,7 @@ TagManager:
   - Obstacles
   - Scores
   - transporter
+  - music
   layers:
   - Default
   - TransparentFX

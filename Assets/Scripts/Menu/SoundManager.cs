@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,6 +19,7 @@ public class SoundManager : MonoBehaviour
     [SerializeField] Sprite volumeIcon;
     [SerializeField] Sprite muteIcon;
 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -29,6 +31,16 @@ public class SoundManager : MonoBehaviour
 
         musicSlider.onValueChanged.AddListener((value)=>SetMusicVolume(value));
         sfxSlider.onValueChanged.AddListener((value) => SetSFXVolume(value));
+
+        if(FindAnyObjectByType<GameplayManager>()!=null)
+            GameplayManager.instance.OnGameplay += UpdateVolume;
+
+
+        GetComponent<AudioSource>().loop = true;
+        GetComponent<AudioSource>().Play();
+
+        
+
     }
 
     public void SetMusicVolume(float value)
@@ -46,6 +58,7 @@ public class SoundManager : MonoBehaviour
         musicSlider.value = value;
         musicVolume = value;
         PlayerPrefs.SetFloat("music", value);
+        UpdateVolume();
     }
 
 
@@ -64,6 +77,7 @@ public class SoundManager : MonoBehaviour
         sfxSlider.value = value;
         sfxVolume= value;
         PlayerPrefs.SetFloat("sfx", value);
+        UpdateVolume();
     }
 
     public void MuteMusic()
@@ -77,6 +91,8 @@ public class SoundManager : MonoBehaviour
         {
             SetMusicVolume(0.1f);
         }
+
+        UpdateVolume();
     }
 
     public void MuteSFX()
@@ -89,6 +105,27 @@ public class SoundManager : MonoBehaviour
         else
         {
             SetSFXVolume(0.1f);
+        }
+
+        UpdateVolume();
+    }
+
+    private void UpdateVolume()
+    {
+        AudioSource[] audioSources = FindObjectsOfType<AudioSource>();
+
+        // Itera a través de los objetos encontrados
+        foreach (AudioSource audioSource in audioSources)
+        {
+           if(audioSource.gameObject.tag=="music")
+            {
+                audioSource.volume = musicVolume;
+            }
+
+           else
+            {
+                audioSource.volume = sfxVolume;
+            }
         }
     }
 
