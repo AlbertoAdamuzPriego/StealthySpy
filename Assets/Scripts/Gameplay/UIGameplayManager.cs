@@ -83,4 +83,9 @@ public class UIGameplayManager : MonoBehaviour
     {
         yield return new WaitForSecondsRealtime(3f);
     }
+
+    public void ActivatePanelSafePoint(bool enable)
+    {
+        gameplayCanvas.transform.GetChild(0).gameObject.SetActive(enable);
+    }
 }

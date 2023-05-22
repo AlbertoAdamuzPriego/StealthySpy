@@ -15,6 +15,8 @@ public class EnemyController : MonoBehaviour
 
     [SerializeField] private float waitTime;
 
+    [SerializeField] private float startVisionAngle;
+
     private float waitTimer;
     private float incapacitedTimer;
 
@@ -86,6 +88,7 @@ public class EnemyController : MonoBehaviour
                 WakeUp();
             }
         }
+
     }
 
     private bool MoveToTarget()
@@ -101,14 +104,14 @@ public class EnemyController : MonoBehaviour
     {
         if (transform.position.x < pointsMovement[currentTarget].x)
         {
-            fov.setInitialAngle(40);
+            fov.setInitialAngle(startVisionAngle);
             transform.GetChild(0).GetComponent<Transform>().position = transform.position + new Vector3(0.3f, -0.28f,0);
             sprite.flipX = false;
         }
 
         else
         {
-            fov.setInitialAngle(220);
+            fov.setInitialAngle(startVisionAngle+180);
             transform.GetChild(0).GetComponent<Transform>().position = transform.position + new Vector3(-0.3f, -0.28f, 0);
             sprite.flipX = true;
         }

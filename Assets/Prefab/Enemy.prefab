@@ -101,6 +101,7 @@ MonoBehaviour:
   - {x: 33.03, y: 3.5}
   minDistance: 1
   waitTime: 3
+  startVisionAngle: 60
   incapacitedTime: 0
   fov: {fileID: 1620127460309222787}
 --- !u!212 &1620127459927801083
@@ -336,8 +337,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   viewDistance: 3
-  viewAngle: 50
-  initialAngle: 40
+  viewAngle: 30
+  initialAngle: 0
   obstacleLayerMask:
     serializedVersion: 2
     m_Bits: 576

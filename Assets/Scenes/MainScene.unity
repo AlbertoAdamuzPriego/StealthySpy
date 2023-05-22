@@ -424,9 +424,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Trabajo Fin de Grado\nUniversidad de C\xF3rdoba \n\nDesarrollado por:
-    Alberto Adamuz Priego\n\nDirigido por: Juan Carlos Fern\xE1ndez Caballero y David
-    Guijo Rubio"
+  m_text: "Trabajo Fin de Grado\nUniversidad de C\xF3rdoba \n\nTitulaci\xF3n: Grado
+    en Ingenier\xEDa Inform\xE1tica, menci\xF3n de Computaci\xF3n\n\nDesarrollado
+    por: Alberto Adamuz Priego\nadamuz.alberto@gmail.com\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6dee92782c68f3a4dae29b048ca6ee12, type: 2}
   m_sharedMaterial: {fileID: 2000174226975695764, guid: 6dee92782c68f3a4dae29b048ca6ee12, type: 2}
@@ -460,7 +460,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 2
+  m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -8096,7 +8096,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -1091757.2, y: 0.012439556}
+  m_AnchoredPosition: {x: -1144198.2, y: 0.012439556}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1749056748
@@ -9539,7 +9539,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -1471519.9, y: 0.012439556}
+  m_AnchoredPosition: {x: -1548913.6, y: 0.012439556}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1971923529
@@ -10118,6 +10118,7 @@ MonoBehaviour:
   sfxSlider: {fileID: 659289031}
   volumeIcon: {fileID: 21300000, guid: a539873d4d72b7744959d5cee819b3a2, type: 3}
   muteIcon: {fileID: 2116210318, guid: 981809ed9444032479d1e9648ca8c322, type: 3}
+  alarmClip: {fileID: 0}
 --- !u!4 &2033076219
 Transform:
   m_ObjectHideFlags: 0

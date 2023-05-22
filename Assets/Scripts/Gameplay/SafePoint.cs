@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class SafePoint : MonoBehaviour
 {
+    private UIGameplayManager UIgameManager;
     // Start is called before the first frame update
     void Start()
     {
-        
+        UIgameManager=FindAnyObjectByType<UIGameplayManager>();
     }
 
     // Update is called once per frame
@@ -16,6 +17,7 @@ public class SafePoint : MonoBehaviour
         if(other.CompareTag("Player"))
         {
             other.gameObject.GetComponent<Player>().visible = false;
+            UIgameManager.ActivatePanelSafePoint(true);
         }
     }
 
@@ -25,6 +27,7 @@ public class SafePoint : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             other.gameObject.GetComponent<Player>().visible = true;
+            UIgameManager.ActivatePanelSafePoint(false);
         }
     }
 }

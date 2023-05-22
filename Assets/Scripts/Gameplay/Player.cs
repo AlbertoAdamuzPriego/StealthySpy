@@ -76,7 +76,7 @@ public class Player : MonoBehaviour
         //Movemos al jugador en el eje X
         RB.velocity = new Vector2(moveSpeed * (horizontalInput+offset), RB.velocity.y);
 
-        if(horizontalInput+offset !=0)
+      /*  if(horizontalInput+offset !=0)
         {
             if(!audioSource.isPlaying)
             {
@@ -90,10 +90,10 @@ public class Player : MonoBehaviour
 
         else
         {
-            if(audioSource.clip.Equals(walkAudio)) 
+            if(audioSource.clip != null && audioSource.clip.Equals(walkAudio)) 
                 audioSource.Stop();
         }
-
+      */
         //Cambiamos el sprite para que concuerde la dirección de movimiento con la dirección del sprite
         if (RB.velocity.x < 0 && horizontalInput<0)
         {

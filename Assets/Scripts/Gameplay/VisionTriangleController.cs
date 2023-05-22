@@ -23,6 +23,7 @@ public class VisionTriangleController : MonoBehaviour
     private MeshRenderer visionMeshRenderer;
     private PolygonCollider2D polygonCollider;
     public bool isPlayerDetected;
+    public bool isFinish;
     void Start()
     {
         visionMesh = new Mesh();
@@ -30,6 +31,7 @@ public class VisionTriangleController : MonoBehaviour
         visionMeshRenderer = GetComponent<MeshRenderer>();
         polygonCollider = GetComponent<PolygonCollider2D>();
         isPlayerDetected = false;
+        isFinish = false;
     }
 
 
@@ -59,12 +61,13 @@ public class VisionTriangleController : MonoBehaviour
             {
                 timeDetection += Time.deltaTime;
 
-                if (timeDetection > 0.3f)
+                if (timeDetection > 0.1f || Vector2.Distance(collider.transform.position, originPoint.transform.position)<0.1f)
                 {
                     
                     collider.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
                     collider.GetComponent<Player>().enabled = false;
                     collider.GetComponent<Animator>().SetBool("finish", true);
+
                     GameplayManager.instance.GameOver();
 
                 }
@@ -111,7 +114,6 @@ public class VisionTriangleController : MonoBehaviour
         points[0] = Vector2.zero;
         float angleIncrement = viewAngle / segments;
         float currentAngle = -viewAngle / 2f - startAngle;
-        ;
 
 
         int vertexIndex = 1;

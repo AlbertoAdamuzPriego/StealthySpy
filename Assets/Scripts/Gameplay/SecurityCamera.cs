@@ -52,10 +52,13 @@ public class SecurityCamera : MonoBehaviour
 
         else
            playerIsDetected = fov.DrawMesh(transform.rotation.z*100);
+
+    
     }
 
     private void UpdateTimer()
     {
         timer += Time.deltaTime;
     }
+
 }

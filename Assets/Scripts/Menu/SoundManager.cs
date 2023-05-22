@@ -19,6 +19,8 @@ public class SoundManager : MonoBehaviour
     [SerializeField] Sprite volumeIcon;
     [SerializeField] Sprite muteIcon;
 
+    private AudioSource audioSource;
+    [SerializeField] AudioClip alarmClip;
 
     // Start is called before the first frame update
     void Start()
@@ -33,12 +35,17 @@ public class SoundManager : MonoBehaviour
         sfxSlider.onValueChanged.AddListener((value) => SetSFXVolume(value));
 
         if(FindAnyObjectByType<GameplayManager>()!=null)
+        {
             GameplayManager.instance.OnGameplay += UpdateVolume;
+            GameplayManager.instance.OnGameOver += Alarm;
+        }
+        
 
+        audioSource = GetComponent<AudioSource>();
+        audioSource.loop = true;
+        audioSource.Play();
 
-        GetComponent<AudioSource>().loop = true;
-        GetComponent<AudioSource>().Play();
-
+        UpdateVolume();
         
 
     }
@@ -127,6 +134,14 @@ public class SoundManager : MonoBehaviour
                 audioSource.volume = sfxVolume;
             }
         }
+    }
+
+    private void Alarm()
+    {
+        audioSource.clip=alarmClip;
+        audioSource.loop = false;
+        audioSource.volume = sfxVolume;
+        audioSource.Play();
     }
 
 }
