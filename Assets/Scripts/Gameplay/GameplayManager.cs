@@ -66,13 +66,13 @@ public class GameplayManager : MonoBehaviour
     {
  
        OnGameplay?.Invoke();
-       Debug.Log("PLAY");
+  
     }
 
     public void Pause()
     {
         OnPause?.Invoke();
-        Debug.Log("PAUSED");
+       
     }
 
     public void Finish(int mode)

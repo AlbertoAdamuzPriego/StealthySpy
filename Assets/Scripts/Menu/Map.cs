@@ -32,7 +32,7 @@ public class Map : ScriptableObject
     public void SetScoreList(float[] newScore, int difficulty)
     {
         Assert.AreEqual(10, newScore.Length);
-        float i=0;
+       
         switch(difficulty)
         {
             case 0:

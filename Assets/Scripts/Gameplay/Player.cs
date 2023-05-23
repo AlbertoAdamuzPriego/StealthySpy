@@ -111,6 +111,7 @@ public class Player : MonoBehaviour
         animator.SetFloat("moveSpeed", Mathf.Abs(RB.velocity.x));
         animator.SetBool("isTransporter", transport);
         animator.SetBool("isGrounded",isGrounded);
+        animator.SetFloat("verticalSpeed", RB.velocity.y);
         offset = 0;
 
         if(!visible)

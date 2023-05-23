@@ -7,7 +7,7 @@ using UnityEngine.UI;
 using System;
 public class DifficultControl : MonoBehaviour
 {
-    public event Action OnChangeDifficulty;
+    //public event Action OnChangeDifficulty;
     [SerializeField] private TMP_Text label;
     private void Start()
     {

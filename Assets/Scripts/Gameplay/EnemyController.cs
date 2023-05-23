@@ -23,7 +23,7 @@ public class EnemyController : MonoBehaviour
     int currentTarget=0;
 
     private SpriteRenderer sprite;
-
+    private Animator animator;
     private bool incapacitated = false;
     [SerializeField] private float incapacitedTime;
 
@@ -35,6 +35,7 @@ public class EnemyController : MonoBehaviour
     {
 
         sprite = GetComponent<SpriteRenderer>();
+        animator=GetComponent<Animator>();
         Turn();
 
         fov=GetComponentInChildren<VisionTriangleController>();
@@ -54,12 +55,13 @@ public class EnemyController : MonoBehaviour
                 if (MoveToTarget())
                 {
                     transform.position = Vector2.MoveTowards(transform.position, pointsMovement[currentTarget], speedMovement * Time.deltaTime);
+                    animator.SetBool("isWalking", true);
                 }
 
                 else
                 {
                     UpdateWaitTimer();
-
+                    animator.SetBool("isWalking", false);
                     if (waitTimer >= waitTime)
                     {
                         currentTarget = (currentTarget + 1) % pointsMovement.Length;
