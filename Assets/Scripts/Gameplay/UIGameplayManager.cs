@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using static Unity.Burst.Intrinsics.X86.Sse4_2;
 
 public class UIGameplayManager : MonoBehaviour
 {
@@ -45,6 +46,19 @@ public class UIGameplayManager : MonoBehaviour
     {
         gameplayCanvas.SetActive(false);
         gameOverCanvas.SetActive(true);
+
+        
+        if (FindAnyObjectByType<Timeout>().TimeHasExpired()) 
+        {
+            gameOverCanvas.transform.GetChild(1).GetComponent<TMP_Text>().text = "SE HA AGOTADO EL TIEMPO";
+        }
+
+        else
+        {
+            gameOverCanvas.transform.GetChild(1).GetComponent<TMP_Text>().text = "HAS SIDO DETECTADO";
+        }
+
+        
         gameOverCanvas.transform.GetChild(1).transform.DOScale(new Vector3(1, 1, 1), 1f);
 
         StartCoroutine(Pausar());

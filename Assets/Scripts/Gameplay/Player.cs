@@ -154,15 +154,18 @@ public class Player : MonoBehaviour
 
     public void Incapacitate()
     {
-        if(enemy != null)
+        animator.Play("player_punch", 0);
+        if (enemy != null)
         {
-            UnityEngine.Debug.Log("PUNCH");
+            
             audioSource.clip = punchAudio;
             audioSource.pitch = 1f;
             audioSource.loop = false;
             audioSource.Play();
             enemy.GetComponent<EnemyController>().Incapacite();
+           
         }
+
     }
 
     private void Pause()

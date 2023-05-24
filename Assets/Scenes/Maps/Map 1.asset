@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 936c17bce2ec0d14bac88d8c69437cb5, type: 3}
   m_Name: Map 1
   m_EditorClassIdentifier: 
-  mapName: Map 1
+  mapName: Mapa 1
   sceneName: Map 1
   score0:
   - 0

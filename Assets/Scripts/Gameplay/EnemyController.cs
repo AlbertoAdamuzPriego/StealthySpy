@@ -52,7 +52,7 @@ public class EnemyController : MonoBehaviour
 
             if (!playerIsDetected)
             {
-                if (MoveToTarget())
+                if (MoveToTarget()) 
                 {
                     transform.position = Vector2.MoveTowards(transform.position, pointsMovement[currentTarget], speedMovement * Time.deltaTime);
                     animator.SetBool("isWalking", true);
@@ -95,7 +95,7 @@ public class EnemyController : MonoBehaviour
 
     private bool MoveToTarget()
     {
-        if(Vector2.Distance(pointsMovement[currentTarget], transform.position)>0.1)
+        if(Vector2.Distance(pointsMovement[currentTarget], transform.position)>0.1 && !incapacitated)
         {
             return true;
         }
@@ -134,15 +134,23 @@ public class EnemyController : MonoBehaviour
         GetComponent<AudioSource>().Play();
         if (!incapacitated)
         {
+            animator.SetBool("Incapacited", true);
             incapacitated = true;
             incapacitedTimer = 0;
             fov.gameObject.SetActive(false);
+     
         }
     }
 
     private void WakeUp()
     {
-        incapacitated = false;
-        fov.gameObject.SetActive(true);
+        animator.SetBool("Incapacited", false);
+
+        if(animator.GetCurrentAnimatorStateInfo(0).IsName("enemy_idle"))
+        {
+            incapacitated = false;
+            fov.gameObject.SetActive(true);
+        }
+      
     }
 }

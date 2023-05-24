@@ -63,4 +63,12 @@ public class Timeout:MonoBehaviour
         return maxTime-time;
     }
 
+    public bool TimeHasExpired()
+    {
+        if (time <= 0)
+            return true;
+
+        return false;
+    }
+
 }

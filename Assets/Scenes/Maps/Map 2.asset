@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 936c17bce2ec0d14bac88d8c69437cb5, type: 3}
-  m_Name: LevelTest
+  m_Name: Map 2
   m_EditorClassIdentifier: 
-  mapName: Nivel de prueba
-  sceneName: TestScene
+  mapName: Mapa 2
+  sceneName: Map 2
   score0:
-  - 2
-  - 3
-  - 4
+  - 0
+  - 0
+  - 0
   - 0
   - 0
   - 0
