@@ -53,13 +53,22 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       
+        Collider2D collider = Physics2D.OverlapCircle(groundCheckPoint.position, 0.2f, whatIsTransporter);
 
-        if (Physics2D.OverlapCircle(groundCheckPoint.position, 0.2f, whatIsTransporter))
+        if (collider!=null)
         {
             isGrounded = true;
-            offset = 0.2f;
             transport = true;
+
+            if(collider.transform.localScale.x>0)
+            {
+                offset = 0.2f;
+            }
+
+            else
+            {
+                offset = -0.2f;
+            }
         }
 
         else
