@@ -4,17 +4,19 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Assertions;
 
-[CreateAssetMenu]
+[CreateAssetMenu] //Pemrite crear objetos en el editor
+
+//Contiene toda la información de un mapa
 public class Map : ScriptableObject
 {
     public string mapName="";
-    public string sceneName;
-    public float[] score0 = new float[10];
-    public float[] score1 = new float[10];
-    public float[] score2 = new float[10];
-    public float averageScore0;
-    public float averageScore1;
-    public float averageScore2;
+    public string sceneName; //Escena de Unity con el mapa
+    public float[] score0 = new float[10]; //Puntuaciones dificultad fácil
+    public float[] score1 = new float[10]; //Puntuaciones dificultad normal
+    public float[] score2 = new float[10]; //Puntuaciones dificultad dificil
+    public float averageScore0; //Puntuación media dificultad fácil
+    public float averageScore1; //Puntuación media dificultad normal
+    public float averageScore2; //Puntuación media dificultad dificil
 
     public float[] GetScoreList(int difficulty)
     {
@@ -64,6 +66,7 @@ public class Map : ScriptableObject
         return averageScore0;
     }
 
+    //Guarda las puntuaciones diferenciandolas con el nombre del mapa
     public void SaveScore()
     {
         for(int i=0;i<score0.Length; i++)
@@ -82,6 +85,7 @@ public class Map : ScriptableObject
 
     }
 
+    //Carga las puntuaciones
     public void LoadScore()
     {
 
@@ -118,11 +122,12 @@ public class Map : ScriptableObject
         return times;
     }
 
+    //Calcula la media obtenida de todas las dificultades
     private void CalculateAverages()
     {
+        //Fácil
         int i=0;
        
-              
         averageScore0 = 0;
         foreach (float num in score0)
         {
@@ -139,7 +144,9 @@ public class Map : ScriptableObject
         else 
             averageScore0 = 0;
 
+       //Normal
        i = 0;
+       
        averageScore1 = 0;
        foreach (float num in score1)
        {
@@ -157,6 +164,7 @@ public class Map : ScriptableObject
        else
         averageScore1 = 0;
 
+       //Dificil
         i = 0;
         averageScore2 = 0;
         foreach (float num in score2)

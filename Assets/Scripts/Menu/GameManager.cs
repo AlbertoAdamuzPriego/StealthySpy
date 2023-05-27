@@ -5,20 +5,25 @@ using System;
 using TMPro;
 using JetBrains.Annotations;
 
+//Es la clase principal que se encarga de gestionar la aplicación
 public class GameManager : MonoBehaviour
 {
+    /*
+    * Estos eventos llaman a una serie de funciones suscritas a ellos cuando son invocados 
+    * permitiendo la comunicación y el control instantáneo con otros scripts
+    */
     public event Action OnMainMenu; //Estado en menú principal
     public event Action OnSettingsMenu; //Estado en menú de ajustes 
     public event Action OnLevelMenu; //Estado en menú de niveles
     public event Action OnCreditsMenu; //Estado en menú de créditos
-    public event Action OnScoreMenu;
-    public event Action ChangeDifficulty;
+    public event Action OnScoreMenu; //Estado en menú de puntuaciones
+    public event Action ChangeDifficulty; //Evento al cambiar la dificultad
 
-    public static GameManager instance; //Instancia del script (Patron Singleton)
+    public static GameManager instance; //Instancia del script (Patrón Singleton)
 
-    public int finishMode;
+    public int finishMode; //Variable que sirve para identificar cómo ha finalizado una partida
 
-    [SerializeField] private TMP_Text difficultyLabel;
+    [SerializeField] private TMP_Text difficultyLabel; // Texto del selector de dificultad
 
     //Controla que solo exista una instancia de GameManager
     private void Awake()
@@ -36,16 +41,13 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        //La aplicación comienza en el menu principal
         LoadData();
-
-
     }
 
     //Activa el menú principal
     public void MainMenu()
     {
-        //Comprueba que existe algo suscrito al evento OnMainMenu
+        //Ejecuta las funciones suscritas al evento OnMainMenu
         OnMainMenu?.Invoke();
 
     }
@@ -53,7 +55,7 @@ public class GameManager : MonoBehaviour
     //Activa el menú de ajustes
     public void SettingsMenu()
     {
-        //Comprueba que existe algo suscrito al evento OnSettingsMenu
+        //Ejecuta las funciones suscritas al evento OnSettingsMenu
         OnSettingsMenu?.Invoke();
       
     }
@@ -61,7 +63,7 @@ public class GameManager : MonoBehaviour
     //Activa el menú de niveles
     public void LevelMenu()
     {
-        //Comprueba que existe algo suscrito al evento OnLevelMenu
+        //Ejecuta las funciones suscritas al evento OnLevelMenu
        
         OnLevelMenu?.Invoke();
 
@@ -72,14 +74,15 @@ public class GameManager : MonoBehaviour
     //Activa el menú de créditos
     public void CreditsMenu()
     {
-        //Comprueba que existe algo suscrito al evento OnLevelMenu
+        //Ejecuta las funciones suscritas al evento OnLevelMenu
         OnCreditsMenu?.Invoke();
 
     }
 
+    //Activa el menú de puntuaciones
     public void ScoreMenu()
     {
-        //Comprueba que existe algo suscrito al evento OnLevelMenu
+        //Ejecuta las funciones suscritas al evento OnScoreMenu
         OnScoreMenu?.Invoke();
         
     }
@@ -92,13 +95,16 @@ public class GameManager : MonoBehaviour
         Application.Quit();
     }
 
+    //Activa el evento de cambio de dificultad
     public void Difficulty()
     {
         ChangeDifficulty?.Invoke();
     }
 
+    //Carga los datos necesarios para la aplicación
     private void LoadData()
     {
+        //Carga la dificultad
         int difficulty = PlayerPrefs.GetInt("difficulty");
         switch (difficulty)
         {
@@ -109,31 +115,25 @@ public class GameManager : MonoBehaviour
             case 2: difficultyLabel.SetText("Dificil"); break;
         }
 
+        //Carga el modo de finalización para la partida (-1 = no hay partida)
         finishMode = PlayerPrefs.GetInt("finish",-1);
         
+        //EL jugador superó la partida
         if(finishMode==0 )
         {
+            //Se actualiza primero las puntuaciones para evitar bugs
             FindAnyObjectByType<MapManager>().RecalculateScores();
             LevelMenu();
         }
 
-        else if(finishMode==1 ) 
-        {
-            
-        }
-
-        else if(finishMode==2 )
-        {
-            MainMenu();
-            //LevelMenu(); 
-        }
-
+        //El jugador perdió la partida o la abandonó
         else
         {
 
             MainMenu();
         }
 
+        //Se actualiza a -1 de nuevo
         PlayerPrefs.SetInt("finish", -1);
     }
 

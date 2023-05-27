@@ -3,20 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+//Controla el funcionamiento del scrollbar
 public class ScrollController : MonoBehaviour
 {
-    private int currentStep;
-    private int maxSteps;
-    [SerializeField] RectTransform content;
-    Scrollbar scroll;
-    [SerializeField] int offset;
-    // Start is called before the first frame update
+    private int currentStep; //Paso actual
+    private int maxSteps; //Máximo de pasos
+    [SerializeField] RectTransform content; //Contenedor del scrollbar
+    Scrollbar scroll; 
+    [SerializeField] int offset; //Distancia entre botones
+ 
     void Start()
     {
         currentStep = 1;
-        maxSteps = FindAnyObjectByType<MapManager>().GetNumberOfMaps();
+        maxSteps = FindAnyObjectByType<MapManager>().GetNumberOfMaps(); 
         scroll = GetComponentInChildren<Scrollbar>();
         
+        //Calcula el paso actual segun la posición del scroll
         scroll.onValueChanged.AddListener((value) =>
         {
             float aux = 0; 
@@ -32,16 +34,14 @@ public class ScrollController : MonoBehaviour
             currentStep = Mathf.Clamp(i-2,1,maxSteps);
         });
     }
-    // Update is called once per frame
-    void Update()
-    {
-    
-    }
-
+ 
+    //Mueve el scroll al siguiente paso, si existe
     public void Next()
     {
+        //Centra el scrollbar (para evitar que los botones queden desplazados)
         content.anchoredPosition = (currentStep-1) * new Vector2(-offset, 0);
-        Debug.Log(maxSteps);
+
+        //Actualiza la posición del scrollbar
         if(currentStep < maxSteps) 
         {
             currentStep++;
@@ -50,6 +50,7 @@ public class ScrollController : MonoBehaviour
        
     }
 
+    //Mueve el scroll al anterior paso, si existe
     public void Previous()
     {
         content.anchoredPosition = (currentStep - 1) * new Vector2(-offset, 0);

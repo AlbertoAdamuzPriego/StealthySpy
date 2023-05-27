@@ -7,6 +7,7 @@ using DG.Tweening;
 using Unity.VisualScripting;
 using System.Numerics;
 
+//Se encarga de crear los botones para el menú de puntuaciones
 public class ScoreManager : MonoBehaviour
 {
     [SerializeField] private GameObject buttonContainer;
@@ -15,15 +16,15 @@ public class ScoreManager : MonoBehaviour
 
     void Start()
     {
-       
+        //Suscribe la función al evento OnScoreMenu
         GameManager.instance.OnScoreMenu += CreateButton;
-
-   
     }
 
     private void CreateButton()
     {
         List<Map> maps = FindAnyObjectByType<MapManager>().GetMaps();
+     
+        //Por cada mapa instancia un botón 
         foreach(Map map in maps)
         {
             
@@ -33,6 +34,7 @@ public class ScoreManager : MonoBehaviour
          
         }
 
+        //Es necesario desuscribirlo para no duplicar
         GameManager.instance.OnScoreMenu -= CreateButton;
      
     }

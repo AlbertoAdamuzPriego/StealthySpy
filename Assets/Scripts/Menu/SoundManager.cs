@@ -5,26 +5,32 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
+//Se encarga de controlar el volumen de la música y los efectos de sonido, así como reproducir la música y ciertos efectos.
 public class SoundManager : MonoBehaviour
 {
+    //Volumen [0-1]
     private float musicVolume = 1;
     private float sfxVolume = 1;
 
+    //Botones de silenciar
     [SerializeField] Image musicButton;
     [SerializeField] Image sfxButton;
 
+    //Barras de deslizamiento
     [SerializeField] Slider musicSlider;
     [SerializeField] Slider sfxSlider;
 
+    //Iconos de silenciar
     [SerializeField] Sprite volumeIcon;
     [SerializeField] Sprite muteIcon;
 
-    private AudioSource audioSource;
-    [SerializeField] AudioClip alarmClip;
+    private AudioSource audioSource; //Componente encargado del sonido
+    [SerializeField] AudioClip alarmClip; //Efecto de alarma
 
     // Start is called before the first frame update
     void Start()
     {
+        //Asignamos los valores predeterminados
         musicVolume = PlayerPrefs.GetFloat("music", 1);
         sfxVolume = PlayerPrefs.GetFloat("sfx", 1);
 
@@ -34,6 +40,7 @@ public class SoundManager : MonoBehaviour
         musicSlider.onValueChanged.AddListener((value)=>SetMusicVolume(value));
         sfxSlider.onValueChanged.AddListener((value) => SetSFXVolume(value));
 
+        //En caso de estar en un mapa
         if(FindAnyObjectByType<GameplayManager>()!=null)
         {
             GameplayManager.instance.OnGameplay += UpdateVolume;
@@ -50,6 +57,7 @@ public class SoundManager : MonoBehaviour
 
     }
 
+    //Establece el volumen de la musica
     public void SetMusicVolume(float value)
     {
         if(value<=0)
@@ -68,7 +76,7 @@ public class SoundManager : MonoBehaviour
         UpdateVolume();
     }
 
-
+    //Establece el volumen de los efectos de sonido
     public void SetSFXVolume(float value)
     {
         if (value <= 0)
@@ -87,6 +95,7 @@ public class SoundManager : MonoBehaviour
         UpdateVolume();
     }
 
+    //Silencia la música
     public void MuteMusic()
     {
         if(musicVolume>0)
@@ -102,6 +111,7 @@ public class SoundManager : MonoBehaviour
         UpdateVolume();
     }
 
+    //Silencia los efectos de sonido
     public void MuteSFX()
     {
         if (sfxVolume > 0)
@@ -117,6 +127,7 @@ public class SoundManager : MonoBehaviour
         UpdateVolume();
     }
 
+    //Actualiza todos los componentes que reproducen sonidos
     private void UpdateVolume()
     {
         AudioSource[] audioSources = FindObjectsOfType<AudioSource>();
@@ -136,6 +147,7 @@ public class SoundManager : MonoBehaviour
         }
     }
 
+    //Reproduce una alarma
     private void Alarm()
     {
         audioSource.clip=alarmClip;

@@ -6,12 +6,13 @@ using TMPro;
 using UnityEngine.UI;
 using System;
 
+//Botones de la selección de mapas
 public class MapButton : MonoBehaviour
 {
     private string mapName;
-    private string sceneName;
-    private float[] bestTime = new float[3];
-    private float[] averageTime = new float[3];
+    private string sceneName; //Escena donde se encuentra el escenario del mapa
+    private float[] bestTime = new float[3]; //Mejor tiempo de cada dificultad
+    private float[] averageTime = new float[3]; //Tiempo medio de cada dificultad
     public string MapName
     {
         set { mapName = value; }
@@ -38,17 +39,21 @@ public class MapButton : MonoBehaviour
 
         var button = GetComponent<Button>();
         button.onClick.AddListener(OpenMap);
+
         UpdateDifficulty();
+
         GameManager.instance.ChangeDifficulty += UpdateDifficulty;
         GameManager.instance.OnLevelMenu += UpdateDifficulty;
     }
-
+ 
     public void OpenMap()
     {
+        //Se guarda el último mapa para actualizar las puntuaciones
         PlayerPrefs.SetString("lastMap", mapName);
         SceneManager.LoadScene(sceneName);
     }
 
+    //Actualiza la dificultad que se muestra en el botón
     private void UpdateDifficulty()
     {
         int difficulty = PlayerPrefs.GetInt("difficulty",0);

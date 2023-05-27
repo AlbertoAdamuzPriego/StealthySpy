@@ -6,9 +6,10 @@ using TMPro;
 using UnityEngine.UI;
 using System;
 
+//Representa los botones del menú de puntuaciones
 public class ScoreButton : MonoBehaviour
 {
-    private Map map;
+    private Map map; //Mapa asociado al botón
     private GameObject scoresContainer;   
     public Map Map
     {
@@ -17,22 +18,26 @@ public class ScoreButton : MonoBehaviour
 
     private void Start()
     {
-        transform.GetChild(0).GetComponentInChildren<TMP_Text>().text = map.mapName;
+        transform.GetChild(0).GetComponentInChildren<TMP_Text>().text = map.mapName; 
         scoresContainer = GameObject.FindGameObjectWithTag("Scores");
         var button = GetComponentInChildren<Button>();
         button.onClick.AddListener(ShowScores);
     }
 
+    //Muestra todas las puntuaciones registradas en el mapa
     private void ShowScores()
     {
+        //Strings para construir el panel de información
         string text0="";
         string text1="";
         string text2="";
 
+        //Leemos la lista de puntuaciones
         float[] score0 = map.GetScoreList(0);
         float[] score1=map.GetScoreList(1);
         float[] score2=map.GetScoreList(2);
 
+        //Añadimos iteradamente las puntuaciones
         for(int i=0;i<score0.Length; i++)  
         {
             if (score0[i] != 0)
@@ -53,6 +58,7 @@ public class ScoreButton : MonoBehaviour
                 text2 += "--:--\n";
         }
 
+        //Si la media no es 0 la añadimos
         if(map.GetAverageScore(0)!=0)
             text0 += TimeSpan.FromSeconds(map.GetAverageScore(0)).ToString(@"mm\:ss");
         

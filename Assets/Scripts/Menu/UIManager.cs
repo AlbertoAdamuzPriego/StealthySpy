@@ -7,31 +7,32 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
+    //Canvas de cada menú
     [SerializeField] private GameObject mainMenuCanvas;
     [SerializeField] private GameObject settingsMenuCanvas;
-    [SerializeField] private GameObject levelMenuCanvas;
+    [SerializeField] private GameObject mapMenuCanvas;
     [SerializeField] private GameObject scoreMenuCanvas;
     [SerializeField] private GameObject creditsMenuCanvas;
-    private bool start = true;
+    private bool start = true; //Controla si la aplicación acaba de arrancar
 
     void Start()
     {
-        //Suscribimos la funcion activateMainMenu al evento OnMainMenu
+        //Suscribimos cada función a su evento correspondiente
         GameManager.instance.OnMainMenu += activateMainMenu;
 
-        //Suscribimos la funcion activateSettingsMenu al evento OnSettingsMenu
         GameManager.instance.OnSettingsMenu += activateSettingsMenu;
 
-        //Suscribimos la funcion activateLevelMenu al evento OnLevelMenu
-        GameManager.instance.OnLevelMenu += activateLevelMenu;
+        GameManager.instance.OnLevelMenu += activateMapMenu;
 
         GameManager.instance.OnScoreMenu += activateScoreMenu;
 
         GameManager.instance.OnCreditsMenu += activateCreditsMenu;
     }
 
+    //Activa el menú principal
     private void activateMainMenu()
     {
+        //Escala los objetos a una determinada escala en una cantidad de segundos (0.3)
         mainMenuCanvas.transform.GetChild(0).transform.DOScale(new Vector3(1, 1, 1), 0.3f);
         mainMenuCanvas.transform.GetChild(1).transform.DOScale(new Vector3(1, 1, 1), 0.3f);
         mainMenuCanvas.transform.GetChild(2).transform.DOScale(new Vector3(1.5f, 1.5f, 1), 0.3f);
@@ -40,18 +41,15 @@ public class UIManager : MonoBehaviour
         mainMenuCanvas.transform.GetChild(5).transform.DOScale(new Vector3(0.5f, 0.5f, 1), 0.3f);
         mainMenuCanvas.transform.GetChild(6).transform.DOScale(new Vector3(0.5f, 0.5f, 0), 0.3f);
 
-        if (!start)
-            settingsMenuCanvas.transform.DOMoveY(1000, 0.3f);
-        settingsMenuCanvas.gameObject.SetActive(false);
+        //Mueve el objeto en el eje Y
+        settingsMenuCanvas.transform.DOMoveY(2000, 0.3f);
 
-        creditsMenuCanvas.SetActive(false);
-
-        levelMenuCanvas.transform.GetChild(0).transform.DOScale(new Vector3(0, 0, 0), 0.3f);
-        levelMenuCanvas.transform.GetChild(1).transform.DOScale(new Vector3(0, 0, 0), 0.3f);
-        levelMenuCanvas.transform.GetChild(2).transform.DOScale(new Vector3(0, 0, 0), 0.3f);
-        levelMenuCanvas.transform.GetChild(3).transform.DOScale(new Vector3(0, 0, 0), 0.3f);
-        levelMenuCanvas.transform.GetChild(4).transform.DOScale(new Vector3(0, 0, 1), 0.3f);
-        levelMenuCanvas.transform.GetChild(5).transform.DOScale(new Vector3(0, 0, 1), 0.3f);
+        mapMenuCanvas.transform.GetChild(0).transform.DOScale(new Vector3(0, 0, 0), 0.3f);
+        mapMenuCanvas.transform.GetChild(1).transform.DOScale(new Vector3(0, 0, 0), 0.3f);
+        mapMenuCanvas.transform.GetChild(2).transform.DOScale(new Vector3(0, 0, 0), 0.3f);
+        mapMenuCanvas.transform.GetChild(3).transform.DOScale(new Vector3(0, 0, 0), 0.3f);
+        mapMenuCanvas.transform.GetChild(4).transform.DOScale(new Vector3(0, 0, 1), 0.3f);
+        mapMenuCanvas.transform.GetChild(5).transform.DOScale(new Vector3(0, 0, 1), 0.3f);
 
         scoreMenuCanvas.transform.GetChild(0).transform.DOScale(new Vector3(0, 0, 0), 0f);
         scoreMenuCanvas.transform.GetChild(1).transform.DOScale(new Vector3(0, 0, 0), 0f);
@@ -61,29 +59,25 @@ public class UIManager : MonoBehaviour
         scoreMenuCanvas.transform.GetChild(5).transform.DOScale(new Vector3(0, 0, 0), 0f);
         scoreMenuCanvas.transform.GetChild(6).transform.DOScale(new Vector3(0, 0, 0), 0f);
 
+        creditsMenuCanvas.transform.GetChild(0).transform.DOScale(new Vector3(0, 0, 0), 0.3f);
+        creditsMenuCanvas.transform.GetChild(1).transform.DOScale(new Vector3(0, 0, 0), 0.3f);
+        creditsMenuCanvas.transform.GetChild(2).transform.DOScale(new Vector3(0, 0, 0), 0.3f);
+        creditsMenuCanvas.transform.GetChild(3).transform.DOScale(new Vector3(0, 0, 0), 0.3f);
 
 
     }
 
+    //Activa el menú de configuración
     private void activateSettingsMenu()
     {
-        start = false;
-        settingsMenuCanvas.gameObject.SetActive(true);
+        
         settingsMenuCanvas.transform.DOMoveY(510, 0.3f);
-        /*
-        settingsMenuCanvas.transform.GetChild(0).transform.DOScale(new Vector3(0.7f, 0.7f, 1), 0.3f);
-        settingsMenuCanvas.transform.GetChild(1).transform.DOScale(new Vector3(5, 5, 1), 0.3f);
-        settingsMenuCanvas.transform.GetChild(2).transform.DOScale(new Vector3(5, 5, 1), 0.3f);
-        settingsMenuCanvas.transform.GetChild(3).transform.DOScale(new Vector3(1, 1, 1), 0.3f);
-        settingsMenuCanvas.transform.GetChild(4).transform.DOScale(new Vector3(2, 2, 1), 0.3f);
-        */
+       
     }
-    
 
-    private void activateLevelMenu()
+    //Activa el menú de selector de mapa
+    private void activateMapMenu()
     {
-       if(GameManager.instance.finishMode == -1)
-        {
             mainMenuCanvas.transform.GetChild(0).transform.DOScale(new Vector3(0, 0, 0), 0.3f);
             mainMenuCanvas.transform.GetChild(1).transform.DOScale(new Vector3(0, 0, 0), 0.3f);
             mainMenuCanvas.transform.GetChild(2).transform.DOScale(new Vector3(0, 0, 0), 0.3f);
@@ -93,39 +87,16 @@ public class UIManager : MonoBehaviour
             mainMenuCanvas.transform.GetChild(6).transform.DOScale(new Vector3(0, 0, 0), 0.3f);
 
 
-            levelMenuCanvas.transform.GetChild(0).transform.DOScale(new Vector3(1, 1, 1), 0.3f);
-            levelMenuCanvas.transform.GetChild(1).transform.DOScale(new Vector3(1f, 1f, 1), 0.3f);
-            levelMenuCanvas.transform.GetChild(2).transform.DOScale(new Vector3(1, 1, 1), 0.3f);
-            levelMenuCanvas.transform.GetChild(3).transform.DOScale(new Vector3(3, 3, 1), 0.3f);
-            levelMenuCanvas.transform.GetChild(4).transform.DOScale(new Vector3(-1, 1, 1), 0f);
-            levelMenuCanvas.transform.GetChild(5).transform.DOScale(new Vector3(1, 1, 1), 0f);
-
-        }
-        
-        else
-        {
-            levelMenuCanvas.transform.GetChild(0).transform.DOScale(new Vector3(1, 1, 1), 0f);
-            levelMenuCanvas.transform.GetChild(1).transform.DOScale(new Vector3(1f, 1f, 1), 0.3f);
-            levelMenuCanvas.transform.GetChild(2).transform.DOScale(new Vector3(1, 1, 1), 0f);
-            levelMenuCanvas.transform.GetChild(3).transform.DOScale(new Vector3(3, 3, 1), 0f);
-            levelMenuCanvas.transform.GetChild(4).transform.DOScale(new Vector3(-1, 1, 1), 0f);
-            levelMenuCanvas.transform.GetChild(5).transform.DOScale(new Vector3(1, 1, 1), 0f);
-
-
-            mainMenuCanvas.transform.GetChild(0).transform.DOScale(new Vector3(0, 0, 0), 0f);
-            mainMenuCanvas.transform.GetChild(1).transform.DOScale(new Vector3(0, 0, 0), 0f);
-            mainMenuCanvas.transform.GetChild(2).transform.DOScale(new Vector3(0, 0, 0), 0f);
-            mainMenuCanvas.transform.GetChild(3).transform.DOScale(new Vector3(0, 0, 0), 0f);
-            mainMenuCanvas.transform.GetChild(4).transform.DOScale(new Vector3(0, 0, 0), 0f);
-            mainMenuCanvas.transform.GetChild(5).transform.DOScale(new Vector3(0, 0, 0), 0f);
-            mainMenuCanvas.transform.GetChild(6).transform.DOScale(new Vector3(0, 0, 0), 0f);
-
-           // levelMenuCanvas.GetComponentInChildren<Scrollbar>().value = 0f;
-           // levelMenuCanvas.GetComponentInChildren<HorizontalLayoutGroup>().gameObject.GetComponent<RectTransform>().DOMoveX(320f, 0.01f);
-        }
+            mapMenuCanvas.transform.GetChild(0).transform.DOScale(new Vector3(1, 1, 1), 0.3f);
+            mapMenuCanvas.transform.GetChild(1).transform.DOScale(new Vector3(1f, 1f, 1), 0.3f);
+            mapMenuCanvas.transform.GetChild(2).transform.DOScale(new Vector3(1, 1, 1), 0.3f);
+            mapMenuCanvas.transform.GetChild(3).transform.DOScale(new Vector3(3, 3, 1), 0.3f);
+            mapMenuCanvas.transform.GetChild(4).transform.DOScale(new Vector3(-1, 1, 1), 0f);
+            mapMenuCanvas.transform.GetChild(5).transform.DOScale(new Vector3(1, 1, 1), 0f);
      
     }
 
+    //Activa el menú de puntuaciones
     private void activateScoreMenu()
     {
         mainMenuCanvas.transform.GetChild(0).transform.DOScale(new Vector3(0, 0, 0), 0.3f);
@@ -136,19 +107,25 @@ public class UIManager : MonoBehaviour
         mainMenuCanvas.transform.GetChild(5).transform.DOScale(new Vector3(0, 0, 0), 0.3f);
         mainMenuCanvas.transform.GetChild(6).transform.DOScale(new Vector3(0, 0, 0), 0.3f);
 
-        scoreMenuCanvas.transform.GetChild(0).transform.DOScale(new Vector3(1, 1, 1), 0f);
-        scoreMenuCanvas.transform.GetChild(1).transform.DOScale(new Vector3(1, 1, 1), 0f);
-        scoreMenuCanvas.transform.GetChild(2).transform.DOScale(new Vector3(1, 1, 1), 0f);
-        scoreMenuCanvas.transform.GetChild(3).transform.DOScale(new Vector3(0.9f, 0.9f, 1), 0f);
-        scoreMenuCanvas.transform.GetChild(4).transform.DOScale(new Vector3(1f, 1f, 1), 0f);
-        scoreMenuCanvas.transform.GetChild(5).transform.DOScale(new Vector3(-1f, 1f, 0), 0f);
-        scoreMenuCanvas.transform.GetChild(6).transform.DOScale(new Vector3(1f, 1f, 0), 0f);
+        scoreMenuCanvas.transform.GetChild(0).transform.DOScale(new Vector3(1, 1, 1), 0.3f);
+        scoreMenuCanvas.transform.GetChild(1).transform.DOScale(new Vector3(1, 1, 1), 0.3f);
+        scoreMenuCanvas.transform.GetChild(2).transform.DOScale(new Vector3(1, 1, 1), 0.3f);
+        scoreMenuCanvas.transform.GetChild(3).transform.DOScale(new Vector3(0.9f, 0.9f, 1), 0.3f);
+        scoreMenuCanvas.transform.GetChild(4).transform.DOScale(new Vector3(1f, 1f, 1), 0.3f);
+        scoreMenuCanvas.transform.GetChild(5).transform.DOScale(new Vector3(-1f, 1f, 0), 0.3f);
+        scoreMenuCanvas.transform.GetChild(6).transform.DOScale(new Vector3(1f, 1f, 0), 0.3f);
+        scoreMenuCanvas.GetComponentInChildren<HorizontalLayoutGroup>().gameObject.transform.DOMoveX(0, 0f);
 
     }
 
+    //Activa el menú de créditos
     private void activateCreditsMenu()
     {
-        creditsMenuCanvas.SetActive(true);
-    }
+      
+        creditsMenuCanvas.transform.GetChild(0).transform.DOScale(new Vector3(1, 1, 0), 0.3f);
+        creditsMenuCanvas.transform.GetChild(1).transform.DOScale(new Vector3(1, 1, 0), 0.3f);
+        creditsMenuCanvas.transform.GetChild(2).transform.DOScale(new Vector3(1, 1, 0), 0.3f);
+        creditsMenuCanvas.transform.GetChild(3).transform.DOScale(new Vector3(1, 1, 0), 0.3f);
+    }     
 
 }

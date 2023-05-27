@@ -5,13 +5,15 @@ using static Map;
 using TMPro;
 using UnityEngine.UI;
 using System;
+
+//Controla la dificultad del juego
 public class DifficultControl : MonoBehaviour
 {
-    //public event Action OnChangeDifficulty;
-    [SerializeField] private TMP_Text label;
+    [SerializeField] private TMP_Text label; //Texto de dificultad actual
     private void Start()
     {
-        int difficulty=PlayerPrefs.GetInt("difficulty",0);
+        //Lee la última dificultad guardada
+        int difficulty=PlayerPrefs.GetInt("difficulty",0); 
 
         switch (difficulty)
         {
@@ -25,6 +27,8 @@ public class DifficultControl : MonoBehaviour
 
       
     }
+
+    //Cambia la dificultad actual según la seleccionada en el menú de selector de mapas
     public void ChangeDifficulty()
     {
         string difficulty = GetComponentInChildren<TMP_Text>().text;
