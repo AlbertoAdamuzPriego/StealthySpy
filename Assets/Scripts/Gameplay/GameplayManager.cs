@@ -142,4 +142,9 @@ public class GameplayManager : MonoBehaviour
         return map;
     }
 
+    public int GetDifficulty()
+    {
+        return difficulty;
+    }
+
 }

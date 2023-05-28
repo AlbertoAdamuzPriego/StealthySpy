@@ -13,7 +13,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject mapMenuCanvas;
     [SerializeField] private GameObject scoreMenuCanvas;
     [SerializeField] private GameObject creditsMenuCanvas;
-    private bool start = true; //Controla si la aplicación acaba de arrancar
+    [SerializeField] private GameObject loadingCanvas;
 
     void Start()
     {
@@ -126,6 +126,10 @@ public class UIManager : MonoBehaviour
         creditsMenuCanvas.transform.GetChild(1).transform.DOScale(new Vector3(1, 1, 0), 0.3f);
         creditsMenuCanvas.transform.GetChild(2).transform.DOScale(new Vector3(1, 1, 0), 0.3f);
         creditsMenuCanvas.transform.GetChild(3).transform.DOScale(new Vector3(1, 1, 0), 0.3f);
-    }     
+    }
 
+    public void ActivateLoadingCanvas()
+    {
+        loadingCanvas.SetActive(true);
+    }
 }

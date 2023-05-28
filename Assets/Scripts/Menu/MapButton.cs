@@ -48,6 +48,8 @@ public class MapButton : MonoBehaviour
  
     public void OpenMap()
     {
+        FindAnyObjectByType<UIManager>().ActivateLoadingCanvas();
+
         //Se guarda el último mapa para actualizar las puntuaciones
         PlayerPrefs.SetString("lastMap", mapName);
         SceneManager.LoadScene(sceneName);

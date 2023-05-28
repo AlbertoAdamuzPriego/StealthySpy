@@ -14,7 +14,7 @@ public class FinishPoint : MonoBehaviour
         if(collision.CompareTag("Player"))
         {
             GameObject player = FindFirstObjectByType<Player>().gameObject;
-            player.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
+            player.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionX;
             player.GetComponent<Player>().enabled = false;
             player.GetComponent<Animator>().SetBool("finish", true);
 

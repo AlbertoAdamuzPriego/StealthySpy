@@ -32,7 +32,7 @@ public class UIGameplayManager : MonoBehaviour
         gameplayCanvas.SetActive(false);
         pauseCanvas.SetActive(true);
 
-        float bestTime = PlayerPrefs.GetFloat("Score0" + PlayerPrefs.GetString("lastMap")+ "0");
+        float bestTime = PlayerPrefs.GetFloat("Score"+GameplayManager.instance.GetDifficulty() + PlayerPrefs.GetString("lastMap")+ "0");
    
         if(bestTime > 0) 
         {
