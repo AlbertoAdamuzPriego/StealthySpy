@@ -18983,7 +18983,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3260358175838706234, guid: 149d2f96735614d47a70877c0b4501f7, type: 3}
       propertyPath: m_SortingOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3260358175867483445, guid: 149d2f96735614d47a70877c0b4501f7, type: 3}
       propertyPath: m_RootOrder
@@ -20860,6 +20860,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1320951189}
     m_Modifications:
+    - target: {fileID: 7624415279122633151, guid: 7f67ff3e54ddb5644a39cbcb3d8b224e, type: 3}
+      propertyPath: Priority
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7670239455640934695, guid: 7f67ff3e54ddb5644a39cbcb3d8b224e, type: 3}
       propertyPath: m_Name
       value: FinishPoint

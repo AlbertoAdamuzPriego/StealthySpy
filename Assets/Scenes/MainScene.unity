@@ -535,7 +535,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: "Trabajo Fin de Grado\nUniversidad de C\xF3rdoba \n\nTitulaci\xF3n: Grado
     en Ingenier\xEDa Inform\xE1tica, menci\xF3n de Computaci\xF3n\n\nDesarrollado
-    por: Alberto Adamuz Priego\nadamuz.alberto@gmail.com\n"
+    por: Alberto Adamuz Priego\nadamuz.alberto@gmail.com\n\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6dee92782c68f3a4dae29b048ca6ee12, type: 2}
   m_sharedMaterial: {fileID: 2000174226975695764, guid: 6dee92782c68f3a4dae29b048ca6ee12, type: 2}
@@ -9751,7 +9751,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -1459936.6, y: 0.012439556}
+  m_AnchoredPosition: {x: -1499793.8, y: 0.012439556}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1749056748
@@ -11412,7 +11412,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -460690.9, y: 0.012439556}
+  m_AnchoredPosition: {x: -519510.88, y: 0.012439556}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1971923529

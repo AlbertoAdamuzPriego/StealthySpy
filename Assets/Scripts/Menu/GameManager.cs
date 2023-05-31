@@ -91,7 +91,7 @@ public class GameManager : MonoBehaviour
     public void CloseGame()
     {
         PlayerPrefs.DeleteKey("finish");
-        PlayerPrefs.DeleteAll();
+       // PlayerPrefs.DeleteAll();
         Application.Quit();
     }
 

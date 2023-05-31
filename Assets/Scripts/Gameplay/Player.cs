@@ -191,4 +191,9 @@ public class Player : MonoBehaviour
     {
         audioSource.Stop();
     }
+
+    public bool Grounded()
+    {
+        return isGrounded;
+    }
 }
