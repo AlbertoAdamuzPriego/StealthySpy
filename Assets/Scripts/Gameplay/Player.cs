@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -33,6 +34,8 @@ public class Player : MonoBehaviour
     private BoxCollider2D incapacitedArea;
     private GameObject enemy;
     public bool visible;
+    private bool pause=false;
+    private Vector2 originalVelocity;
     // Start is called before the first frame update
     void Start()
     {
@@ -53,85 +56,95 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Collider2D collider = Physics2D.OverlapCircle(groundCheckPoint.position, 0.2f, whatIsTransporter);
-
-        if (collider!=null)
+        if(!pause)
         {
-            isGrounded = true;
-            transport = true;
+            Collider2D collider = Physics2D.OverlapCircle(groundCheckPoint.position, 0.2f, whatIsTransporter);
 
-            if(collider.transform.localScale.x>0)
+            if (collider != null)
             {
-                offset = 0.2f;
+                isGrounded = true;
+                transport = true;
+
+                if (collider.transform.localScale.x > 0)
+                {
+                    offset = 0.2f;
+                }
+
+                else
+                {
+                    offset = -0.2f;
+                }
             }
 
             else
             {
-                offset = -0.2f;
+                transport = false;
+                //Comprobamos si el jugador está en el suelo
+                isGrounded = Physics2D.OverlapCircle(groundCheckPoint.position, 0.2f, whatIsGround);
             }
-        }
-
-        else
-        {
-            transport = false;
-            //Comprobamos si el jugador está en el suelo
-            isGrounded = Physics2D.OverlapCircle(groundCheckPoint.position, 0.2f, whatIsGround);
-        }
 
 
-        //Obtenemos el input horizontal del controlador
-        float horizontalInput = joystick.Horizontal;
+            //Obtenemos el input horizontal del controlador
+            float horizontalInput = joystick.Horizontal;
 
-        //Movemos al jugador en el eje X
-        RB.velocity = new Vector2(moveSpeed * (horizontalInput+offset), RB.velocity.y);
+            //Movemos al jugador en el eje X
+            RB.velocity = new Vector2(moveSpeed * (horizontalInput + offset), RB.velocity.y);
 
-      /*  if(horizontalInput+offset !=0)
-        {
-            if(!audioSource.isPlaying)
+            /*  if(horizontalInput+offset !=0)
+              {
+                  if(!audioSource.isPlaying)
+                  {
+                      audioSource.clip = walkAudio;
+                      audioSource.pitch = 2f;
+                      audioSource.loop = true;
+                      audioSource.Play();
+
+                  }
+              }
+
+              else
+              {
+                  if(audioSource.clip != null && audioSource.clip.Equals(walkAudio)) 
+                      audioSource.Stop();
+              }
+            */
+            //Cambiamos el sprite para que concuerde la dirección de movimiento con la dirección del sprite
+            if (RB.velocity.x < 0 && horizontalInput < 0)
             {
-                audioSource.clip = walkAudio;
-                audioSource.pitch = 2f;
-                audioSource.loop = true;
-                audioSource.Play();
-               
+                SR.flipX = true;
+                incapacitedArea.gameObject.transform.localScale = new Vector3(-1, 1, 1);
+            }
+
+            else if (RB.velocity.x > 0)
+            {
+                SR.flipX = false;
+                incapacitedArea.gameObject.transform.localScale = new Vector3(1, 1, 1);
+            }
+
+
+            animator.SetFloat("moveSpeed", Mathf.Abs(RB.velocity.x));
+            animator.SetBool("isTransporter", transport);
+            animator.SetBool("isGrounded", isGrounded);
+            animator.SetFloat("verticalSpeed", RB.velocity.y);
+            offset = 0;
+
+            if (!visible)
+            {
+                SR.color = new Color(0.77f, 0.77f, 0.77f, 1);
+            }
+
+            else
+            {
+                SR.color = new Color(1, 1, 1, 1);
             }
         }
 
         else
         {
-            if(audioSource.clip != null && audioSource.clip.Equals(walkAudio)) 
-                audioSource.Stop();
+            transform.position = transform.position;
         }
-      */
-        //Cambiamos el sprite para que concuerde la dirección de movimiento con la dirección del sprite
-        if (RB.velocity.x < 0 && horizontalInput<0)
-        {
-            SR.flipX = true;
-            incapacitedArea.gameObject.transform.localScale = new Vector3(-1, 1, 1);
-        }
-
-        else if (RB.velocity.x > 0)
-        {
-            SR.flipX = false;
-            incapacitedArea.gameObject.transform.localScale = new Vector3(1, 1, 1);
-        }
-
-
-        animator.SetFloat("moveSpeed", Mathf.Abs(RB.velocity.x));
-        animator.SetBool("isTransporter", transport);
-        animator.SetBool("isGrounded",isGrounded);
-        animator.SetFloat("verticalSpeed", RB.velocity.y);
-        offset = 0;
-
-        if(!visible)
-        {
-            SR.color = new Color(0.77f, 0.77f, 0.77f, 1);
-        }
-
-        else
-        {
-            SR.color = new Color(1, 1, 1, 1);
-        }
+        
+      
     }
 
     public void Jump()
@@ -179,12 +192,19 @@ public class Player : MonoBehaviour
 
     private void Pause()
     {
-        RB.constraints = RigidbodyConstraints2D.FreezePosition;
+        pause = true;
+        animator.speed = 0f;
+        originalVelocity = RB.velocity;
+        RB.velocity = Vector3.zero;
+        RB.isKinematic = true;
     }
 
     private void Play()
     {
-        RB.constraints = RigidbodyConstraints2D.FreezeRotation;
+        pause = false;
+        RB.isKinematic = false;
+        animator.speed = 1f;
+        RB.velocity = originalVelocity;
     }
 
     private void StopSound()
