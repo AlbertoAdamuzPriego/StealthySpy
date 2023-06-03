@@ -10007,7 +10007,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 9
-      m_TileSpriteIndex: 9
+      m_TileSpriteIndex: 13
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -11120,16 +11120,16 @@ Tilemap:
     m_Data: {fileID: 21300000, guid: dbb15e488934ab94a99d2dddd6624c5e, type: 3}
   - m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 1
-    m_Data: {fileID: 21300000, guid: 6f4a266c7042d594b9e4cba53dafdf3d, type: 3}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   - m_RefCount: 82
     m_Data: {fileID: 21300000, guid: 618a0b62765209d4baf81eed327a8fb3, type: 3}
   - m_RefCount: 0
     m_Data: {fileID: 0}
   - m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
+  - m_RefCount: 1
+    m_Data: {fileID: 21300000, guid: 6f4a266c7042d594b9e4cba53dafdf3d, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: 21300000, guid: 1cb8d7cb0a6635649894a8774922348d, type: 3}
   - m_RefCount: 11
@@ -38923,9 +38923,13 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 295167131}
     - target: {fileID: 898229519670402014, guid: 1ed1de9db700bf9478a5ecefa4760e72, type: 3}
+      propertyPath: jumpButton
+      value: 
+      objectReference: {fileID: 1767081095}
+    - target: {fileID: 898229519670402014, guid: 1ed1de9db700bf9478a5ecefa4760e72, type: 3}
       propertyPath: incapacitedButton
       value: 
-      objectReference: {fileID: 821439393}
+      objectReference: {fileID: 821439395}
     - target: {fileID: 898229520369281361, guid: 1ed1de9db700bf9478a5ecefa4760e72, type: 3}
       propertyPath: m_Size.x
       value: 0.61894107

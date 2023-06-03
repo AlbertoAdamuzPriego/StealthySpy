@@ -30,7 +30,9 @@ public class Player : MonoBehaviour
     private float offset=0;
     private bool transport = false;
 
-    [SerializeField] GameObject incapacitedButton;
+
+    [SerializeField] Button jumpButton;
+    [SerializeField] Button incapacitedButton;
     private BoxCollider2D incapacitedArea;
     private GameObject enemy;
     public bool visible;
@@ -62,6 +64,7 @@ public class Player : MonoBehaviour
 
             if (collider != null)
             {
+                jumpButton.interactable = true;
                 isGrounded = true;
                 transport = true;
 
@@ -81,6 +84,16 @@ public class Player : MonoBehaviour
                 transport = false;
                 //Comprobamos si el jugador está en el suelo
                 isGrounded = Physics2D.OverlapCircle(groundCheckPoint.position, 0.2f, whatIsGround);
+
+                if(isGrounded)
+                {
+                    jumpButton.interactable = true;
+                }
+
+                else
+                {
+                    jumpButton.interactable = false;
+                }
             }
 
 
@@ -90,24 +103,7 @@ public class Player : MonoBehaviour
             //Movemos al jugador en el eje X
             RB.velocity = new Vector2(moveSpeed * (horizontalInput + offset), RB.velocity.y);
 
-            /*  if(horizontalInput+offset !=0)
-              {
-                  if(!audioSource.isPlaying)
-                  {
-                      audioSource.clip = walkAudio;
-                      audioSource.pitch = 2f;
-                      audioSource.loop = true;
-                      audioSource.Play();
-
-                  }
-              }
-
-              else
-              {
-                  if(audioSource.clip != null && audioSource.clip.Equals(walkAudio)) 
-                      audioSource.Stop();
-              }
-            */
+            
             //Cambiamos el sprite para que concuerde la dirección de movimiento con la dirección del sprite
             if (RB.velocity.x < 0 && horizontalInput < 0)
             {
@@ -161,7 +157,7 @@ public class Player : MonoBehaviour
         if (collision.CompareTag("Obstacles"))
         {
             enemy = collision.gameObject;
-            incapacitedButton.GetComponent<Image>().color = Color.white;
+            incapacitedButton.interactable = true;
         }
     }
 
@@ -170,7 +166,7 @@ public class Player : MonoBehaviour
         if (collision.CompareTag("Obstacles"))
         {
             enemy = null;
-            incapacitedButton.GetComponent<Image>().color = Color.gray;
+            incapacitedButton.interactable = false;
         }
     }
 
