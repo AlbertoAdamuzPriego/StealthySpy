@@ -128,6 +128,7 @@ public class UIManager : MonoBehaviour
         creditsMenuCanvas.transform.GetChild(3).transform.DOScale(new Vector3(1, 1, 0), 0.3f);
     }
 
+    //Activa la pantalla de carga
     public void ActivateLoadingCanvas()
     {
         loadingCanvas.SetActive(true);

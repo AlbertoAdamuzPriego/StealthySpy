@@ -40,14 +40,14 @@ public class SoundManager : MonoBehaviour
         musicSlider.onValueChanged.AddListener((value)=>SetMusicVolume(value));
         sfxSlider.onValueChanged.AddListener((value) => SetSFXVolume(value));
 
-        //En caso de estar en un mapa
+        //En caso de estar en un mapa suscribimos las funciones a los eventos
         if(FindAnyObjectByType<GameplayManager>()!=null)
         {
             GameplayManager.instance.OnGameplay += UpdateVolume;
             GameplayManager.instance.OnGameOver += Alarm;
         }
         
-
+        //Activamos la música
         audioSource = GetComponent<AudioSource>();
         audioSource.loop = true;
         audioSource.Play();

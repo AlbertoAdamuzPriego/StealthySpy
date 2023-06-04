@@ -53,7 +53,10 @@ public class ScrollController : MonoBehaviour
     //Mueve el scroll al anterior paso, si existe
     public void Previous()
     {
+        //Centra el scrollbar (para evitar que los botones queden desplazados)
         content.anchoredPosition = (currentStep - 1) * new Vector2(-offset, 0);
+
+        //Actualiza la posición del scrollbar
         if (currentStep > 1)
         {
             currentStep--;

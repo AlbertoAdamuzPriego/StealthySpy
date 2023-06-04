@@ -9,7 +9,7 @@ using System;
 //Botones de la selección de mapas
 public class MapButton : MonoBehaviour
 {
-    private string mapName;
+    private string mapName; //Nombre del mapa
     private string sceneName; //Escena donde se encuentra el escenario del mapa
     private float[] bestTime = new float[3]; //Mejor tiempo de cada dificultad
     private float[] averageTime = new float[3]; //Tiempo medio de cada dificultad
@@ -33,6 +33,7 @@ public class MapButton : MonoBehaviour
         averageTime= times;
     }
 
+   
     private void Start()
     {
         transform.GetChild(0).GetComponentInChildren<TMP_Text>().text = mapName;
@@ -46,8 +47,10 @@ public class MapButton : MonoBehaviour
         GameManager.instance.OnLevelMenu += UpdateDifficulty;
     }
  
+    //Carga el mapa
     public void OpenMap()
     {
+        //Pantalla de carga
         FindAnyObjectByType<UIManager>().ActivateLoadingCanvas();
 
         //Se guarda el último mapa para actualizar las puntuaciones
@@ -60,6 +63,7 @@ public class MapButton : MonoBehaviour
     {
         int difficulty = PlayerPrefs.GetInt("difficulty",0);
 
+        //Segun la dificultad se lee la mejor puntuación y la media correspondiente
         switch(difficulty)
         {
             case 0:

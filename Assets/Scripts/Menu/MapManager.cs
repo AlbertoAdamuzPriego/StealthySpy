@@ -10,15 +10,16 @@ using System.Numerics;
 //Gestiona la información de los mapas 
 public class MapManager : MonoBehaviour
 {
-    [SerializeField] private List<Map> maps = new List<Map>(); 
-    [SerializeField] private GameObject buttonContainer;
-    [SerializeField] private MapButton mapButton;
-    [SerializeField] private GameObject scrollbar;
+    [SerializeField] private List<Map> maps = new List<Map>(); //Lista con todos los mapas
+    [SerializeField] private GameObject buttonContainer; //Contenedor del scrollbar
+    [SerializeField] private MapButton mapButton; //Clase MapButton
+    [SerializeField] private GameObject scrollbar; //Scrollbar
 
     void Start()
     {
         GameManager.instance.OnLevelMenu += CreateButton;
 
+        //Carga las puntuaciones de cada mapa
         foreach (Map map in maps) 
         {
             map.LoadScore();
@@ -45,6 +46,7 @@ public class MapManager : MonoBehaviour
      
     }
 
+    //Devuelve el número de mapas
     public int GetNumberOfMaps()
     {
         return maps.Count;
@@ -147,6 +149,7 @@ public class MapManager : MonoBehaviour
         return vector;
     }
 
+    //Devuelve la lista de mapas
     public List<Map> GetMaps()
     {
         return maps;

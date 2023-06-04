@@ -10,8 +10,8 @@ using System.Numerics;
 //Se encarga de crear los botones para el menú de puntuaciones
 public class ScoreManager : MonoBehaviour
 {
-    [SerializeField] private GameObject buttonContainer;
-    [SerializeField] private ScoreButton scoreButton;
+    [SerializeField] private GameObject buttonContainer; //Contenedor del scrollbar
+    [SerializeField] private ScoreButton scoreButton; //Clase ScoreButton
     
 
     void Start()
@@ -20,6 +20,7 @@ public class ScoreManager : MonoBehaviour
         GameManager.instance.OnScoreMenu += CreateButton;
     }
 
+    //Crea los botones del menú de puntuaciones
     private void CreateButton()
     {
         List<Map> maps = FindAnyObjectByType<MapManager>().GetMaps();

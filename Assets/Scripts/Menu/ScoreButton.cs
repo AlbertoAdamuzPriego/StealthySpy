@@ -10,7 +10,7 @@ using System;
 public class ScoreButton : MonoBehaviour
 {
     private Map map; //Mapa asociado al botón
-    private GameObject scoresContainer;   
+    private GameObject scoresContainer;  //Contenedor del texto de puntuaciones
     public Map Map
     {
         set { map = value; }
@@ -20,6 +20,7 @@ public class ScoreButton : MonoBehaviour
     {
         transform.GetChild(0).GetComponentInChildren<TMP_Text>().text = map.mapName; 
         scoresContainer = GameObject.FindGameObjectWithTag("Scores");
+
         var button = GetComponentInChildren<Button>();
         button.onClick.AddListener(ShowScores);
     }

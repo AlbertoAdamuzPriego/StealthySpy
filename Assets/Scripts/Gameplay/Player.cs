@@ -14,9 +14,9 @@ public class Player : MonoBehaviour
     [Header("Animator")]
     private Animator animator; //Controlador de las animaciones del jugador
     private SpriteRenderer SR; //Sprite del jugador
-    private AudioSource audioSource;
-    [SerializeField] private AudioClip punchAudio;
-    [SerializeField] private AudioClip walkAudio;
+    private AudioSource audioSource; //Controlador de audio
+    [SerializeField] private AudioClip punchAudio; //Audio puñetazo
+    [SerializeField] private AudioClip walkAudio; //Audio caminar
 
 
     [Header("Movement")]
@@ -27,27 +27,35 @@ public class Player : MonoBehaviour
     [SerializeField] LayerMask whatIsGround; //Capa del suelo
     [SerializeField] LayerMask whatIsTransporter; //Capa del suelo
     private bool isGrounded; //Indica si el jugador está en el suelo
-    private float offset=0;
-    private bool transport = false;
+    private float offset=0; //Offset de velocidad
+    private bool transport = false; //Indica si el personaje está sobre una cinta
+    [SerializeField] Button jumpButton; //Botón de salto
+    private bool isJumping = false; //Indica si el jugador está pulsando el botón de salto
 
+    [Header ("Incapacite")]
+    [SerializeField] Button incapacitedButton; //Botón de incapacitar
+    private BoxCollider2D incapacitedArea; //Rango para incapacitar
+    private GameObject enemy; //Enemigo al que incapacita
 
-    [SerializeField] Button jumpButton;
-    [SerializeField] Button incapacitedButton;
-    private BoxCollider2D incapacitedArea;
-    private GameObject enemy;
-    public bool visible;
-    private bool pause=false;
-    private Vector2 originalVelocity;
-    // Start is called before the first frame update
+    [Header ("Others")]
+    public bool visible; //Indica si el jugador está visible
+    private bool pause=false; 
+    private Vector2 originalVelocity; //Velocidad antes de pausar
+    
+
     void Start()
     {
+        //Inicialización de componentes
         RB = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         SR = GetComponent<SpriteRenderer>();
         audioSource = GetComponent<AudioSource>();
+        incapacitedArea = GetComponentInChildren<BoxCollider2D>();
+
+        //Se asignan las capas
         whatIsGround = LayerMask.GetMask("Ground");
         whatIsTransporter = LayerMask.GetMask("Transport");
-        incapacitedArea = GetComponentInChildren<BoxCollider2D>();
+        
         visible = true;
 
         GameplayManager.instance.OnPause += Pause;
@@ -55,19 +63,22 @@ public class Player : MonoBehaviour
         GameplayManager.instance.OnGameOver += StopSound;
     }
 
-    // Update is called once per frame
     void Update()
     {
         if(!pause)
         {
+            //Comprobamos si el jugador está sobre una cinta de transporte
             Collider2D collider = Physics2D.OverlapCircle(groundCheckPoint.position, 0.2f, whatIsTransporter);
 
+            //Detecta que sí
             if (collider != null)
             {
+                //Se permite el salto
                 jumpButton.interactable = true;
                 isGrounded = true;
                 transport = true;
 
+                //Se añade un offset a la velocidad dependiendo de hacia donde se mueve la cinta
                 if (collider.transform.localScale.x > 0)
                 {
                     offset = 0.2f;
@@ -82,16 +93,20 @@ public class Player : MonoBehaviour
             else
             {
                 transport = false;
+
                 //Comprobamos si el jugador está en el suelo
                 isGrounded = Physics2D.OverlapCircle(groundCheckPoint.position, 0.2f, whatIsGround);
 
+                //Detecta que sí
                 if(isGrounded)
                 {
+                    //Se permite el salto
                     jumpButton.interactable = true;
                 }
 
                 else
                 {
+                    //No se permite el salto
                     jumpButton.interactable = false;
                 }
             }
@@ -117,13 +132,17 @@ public class Player : MonoBehaviour
                 incapacitedArea.gameObject.transform.localScale = new Vector3(1, 1, 1);
             }
 
-
+            //Se actualiza el Animator
             animator.SetFloat("moveSpeed", Mathf.Abs(RB.velocity.x));
             animator.SetBool("isTransporter", transport);
             animator.SetBool("isGrounded", isGrounded);
             animator.SetFloat("verticalSpeed", RB.velocity.y);
+
+
+            //Se reinicia el offset para el siguiente frame
             offset = 0;
 
+            //Se oscurece al personaje si está oculto
             if (!visible)
             {
                 SR.color = new Color(0.77f, 0.77f, 0.77f, 1);
@@ -133,27 +152,48 @@ public class Player : MonoBehaviour
             {
                 SR.color = new Color(1, 1, 1, 1);
             }
+
+            if (isJumping)
+            {
+                Jump();
+            }
         }
 
+        //Si esta pausado, se mantiene la posición actual (para evitar que caiga por gravedad)
         else
         {
             transform.position = transform.position;
         }
-        
+      
       
     }
 
-    public void Jump()
+    //Detecta si el jugador está pulsando el botón de salto
+    public void OnPointerDown()
     {
+        isJumping = true;
+    }
+
+    //Detecta si el jugador suelta el botón de salto
+    public void OnPointerUp()
+    {
+        isJumping = false;
+    }
+
+    //El personaje salta
+    private void Jump()
+    {
+        //Solo puede saltar desde el suelo
         if(isGrounded)
         {
             RB.velocity = new Vector2(RB.velocity.x, jumpForce);
         }
     }
 
+    //Detecta si un objeto colisiona
     private void OnTriggerEnter2D(Collider2D collision)
     {
- 
+        //Si es un obstaculo activa el botón de incapacitar
         if (collision.CompareTag("Obstacles"))
         {
             enemy = collision.gameObject;
@@ -161,8 +201,10 @@ public class Player : MonoBehaviour
         }
     }
 
+    //Detecta cuando un objeto sale de la colisión
     private void OnTriggerExit2D(Collider2D collision)
     {
+        //Si es un obstaculo desactiva el botón de incapacitar
         if (collision.CompareTag("Obstacles"))
         {
             enemy = null;
@@ -170,44 +212,54 @@ public class Player : MonoBehaviour
         }
     }
 
+    //Incapacita a un enemigo cercano
     public void Incapacitate()
     {
-        animator.Play("player_punch", 0);
+        
         if (enemy != null)
         {
-            
+            //Animación de puñetazo
+            animator.Play("player_punch", 0);
+
+            //Sonido de puñetazo
             audioSource.clip = punchAudio;
             audioSource.pitch = 1f;
             audioSource.loop = false;
             audioSource.Play();
+
+            //Incapacita al enemigo
             enemy.GetComponent<EnemyController>().Incapacite();
            
         }
 
     }
 
+    //Pausa el personaje
     private void Pause()
     {
         pause = true;
-        animator.speed = 0f;
-        originalVelocity = RB.velocity;
+        animator.speed = 0f; //Pausa la animación
+        originalVelocity = RB.velocity; //Se almacena la velocidad
         RB.velocity = Vector3.zero;
-        RB.isKinematic = true;
+        RB.isKinematic = true; //Evita bugs
     }
 
+    //Reanuda el control del personaje
     private void Play()
     {
         pause = false;
         RB.isKinematic = false;
-        animator.speed = 1f;
-        RB.velocity = originalVelocity;
+        animator.speed = 1f; //Se restaura la animación
+        RB.velocity = originalVelocity; //Se restaura la velocidad
     }
 
+    //Para el sonido en ejecución
     private void StopSound()
     {
         audioSource.Stop();
     }
 
+    //Devuelve si el personaje está en el suelo
     public bool Grounded()
     {
         return isGrounded;

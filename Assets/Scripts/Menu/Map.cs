@@ -18,6 +18,7 @@ public class Map : ScriptableObject
     public float averageScore1; //Puntuación media dificultad normal
     public float averageScore2; //Puntuación media dificultad dificil
 
+    //Devuelve la lista de puntuaciones de una dificultad
     public float[] GetScoreList(int difficulty)
     {
         switch(difficulty)
@@ -30,6 +31,7 @@ public class Map : ScriptableObject
         return score0;
     }
   
+    //Asigna una lista de puntuaciones a una dificultad
 
     public void SetScoreList(float[] newScore, int difficulty)
     {
@@ -54,7 +56,7 @@ public class Map : ScriptableObject
        
     }
 
-
+    //Devuelve la media de las puntuaciones de una dificultad
     public float GetAverageScore(int difficulty)
     {
         switch(difficulty)
@@ -100,6 +102,7 @@ public class Map : ScriptableObject
 
     }
 
+    //Devuelve el mejor tiempo de todas las dificultades
     public float[] GetBestTime()
     {
         float[] times = new float[3];
@@ -111,6 +114,7 @@ public class Map : ScriptableObject
         return times;
     }
 
+    //Devuelve la media las puntuaciones de todas las dificultades
     public float[] GetAverageTime()
     {
         float[] times = new float[3];

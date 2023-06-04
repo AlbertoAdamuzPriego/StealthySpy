@@ -4,13 +4,14 @@ using UnityEngine;
 using TMPro;
 using System;
 
+//Temporizador del mapa
 public class Timeout:MonoBehaviour
 {
     [SerializeField] private float time=0;
     private bool enable = false;
-    [SerializeField] private TMP_Text text;
-    private string timeText;
-    private float maxTime;
+    [SerializeField] private TMP_Text text; //Texto donde se imprime el temporizador
+    private string timeText; //Temporizador en formato de texto
+    private float maxTime; //Tiempo máximo para finalizar el mapa
     private void Start()
     {
         GameplayManager.instance.OnGameplay += ReanudeCount;
@@ -18,6 +19,8 @@ public class Timeout:MonoBehaviour
         GameplayManager.instance.OnFinished += PauseCount;
         GameplayManager.instance.OnCompleted += PauseCount;
     }
+
+    //Inicializa y activa el temporizador
     public void StartCount(float MaxTime)
     {
         time = MaxTime;
@@ -25,20 +28,23 @@ public class Timeout:MonoBehaviour
         enable = true;
     }
 
-    // Update is called once per frame
+
     private void Update()
     {
+        //Actualiza el tiempo si está activo
         if(enable) 
         {
             time -= Time.deltaTime;
 
-          
+            //Si el tiempo llega a cero se da por finalizada la partida
             if(time <= 0 )
             {
                 enable = false;
                 GameplayManager.instance.GameOver();
             }
         }
+
+        //Imprime el temporizador en la pantalla
 
         timeText = TimeSpan.FromSeconds(time).ToString(@"mm\:ss");
 
@@ -47,22 +53,25 @@ public class Timeout:MonoBehaviour
 
     }
 
-
+    //Pausa el temporizador
     public void PauseCount() 
     { 
         enable = false;
     }
 
+    //Reanuda el temporizador
     public void ReanudeCount()
     {
         enable = true;
     }
 
+    //Devuelve el tiempo empleado
     public float GetTime()
     {
         return maxTime-time;
     }
 
+    //Comprueba si el tiempo ha expirado
     public bool TimeHasExpired()
     {
         if (time <= 0)
