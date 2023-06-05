@@ -31,6 +31,8 @@ public class Player : MonoBehaviour
     private bool transport = false; //Indica si el personaje está sobre una cinta
     [SerializeField] Button jumpButton; //Botón de salto
     private bool isJumping = false; //Indica si el jugador está pulsando el botón de salto
+    [SerializeField] private float jumpTime = 0.2f; //Tiempo de espera entre salto
+    private float jumpTimer = 0f; //Contador de tiempo de salto
 
     [Header ("Incapacite")]
     [SerializeField] Button incapacitedButton; //Botón de incapacitar
@@ -38,7 +40,7 @@ public class Player : MonoBehaviour
     private GameObject enemy; //Enemigo al que incapacita
 
     [Header ("Others")]
-    public bool visible; //Indica si el jugador está visible
+    public bool visible; //Indica si el jugador es visible para los ene migos
     private bool pause=false; 
     private Vector2 originalVelocity; //Velocidad antes de pausar
     
@@ -111,6 +113,12 @@ public class Player : MonoBehaviour
                 }
             }
 
+            //Cuando el personaje aterriza se actualiza el tiempo de espera para el siguiente salto
+            if(isGrounded)
+            {
+                UpdateJumpTimer();
+            }
+
 
             //Obtenemos el input horizontal del controlador
             float horizontalInput = joystick.Horizontal;
@@ -153,9 +161,12 @@ public class Player : MonoBehaviour
                 SR.color = new Color(1, 1, 1, 1);
             }
 
+            //Se comprueba que el botón de salto esté pulsado
             if (isJumping)
             {
-                Jump();
+                //Se comprueba que paso el tiempo de espera
+                if(jumpTimer<=0)
+                    Jump();
             }
         }
 
@@ -178,6 +189,7 @@ public class Player : MonoBehaviour
     public void OnPointerUp()
     {
         isJumping = false;
+
     }
 
     //El personaje salta
@@ -187,6 +199,7 @@ public class Player : MonoBehaviour
         if(isGrounded)
         {
             RB.velocity = new Vector2(RB.velocity.x, jumpForce);
+            jumpTimer = jumpTime;
         }
     }
 
@@ -263,5 +276,11 @@ public class Player : MonoBehaviour
     public bool Grounded()
     {
         return isGrounded;
+    }
+
+    //Actualiza el temporizador del tiempo de espera de salto
+    private void UpdateJumpTimer()
+    {
+        jumpTimer -= Time.deltaTime;
     }
 }

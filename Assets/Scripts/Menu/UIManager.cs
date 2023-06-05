@@ -88,7 +88,7 @@ public class UIManager : MonoBehaviour
 
 
             mapMenuCanvas.transform.GetChild(0).transform.DOScale(new Vector3(1, 1, 1), 0.3f);
-            mapMenuCanvas.transform.GetChild(1).transform.DOScale(new Vector3(1f, 1f, 1), 0.3f);
+            mapMenuCanvas.transform.GetChild(1).transform.DOScale(new Vector3(1.5f, 1.5f, 1), 0.3f);
             mapMenuCanvas.transform.GetChild(2).transform.DOScale(new Vector3(1, 1, 1), 0.3f);
             mapMenuCanvas.transform.GetChild(3).transform.DOScale(new Vector3(3, 3, 1), 0.3f);
             mapMenuCanvas.transform.GetChild(4).transform.DOScale(new Vector3(-1, 1, 1), 0f);
@@ -111,7 +111,7 @@ public class UIManager : MonoBehaviour
         scoreMenuCanvas.transform.GetChild(1).transform.DOScale(new Vector3(1, 1, 1), 0.3f);
         scoreMenuCanvas.transform.GetChild(2).transform.DOScale(new Vector3(1, 1, 1), 0.3f);
         scoreMenuCanvas.transform.GetChild(3).transform.DOScale(new Vector3(0.9f, 0.9f, 1), 0.3f);
-        scoreMenuCanvas.transform.GetChild(4).transform.DOScale(new Vector3(1f, 1f, 1), 0.3f);
+        scoreMenuCanvas.transform.GetChild(4).transform.DOScale(new Vector3(1.5f, 1.5f, 1), 0.3f);
         scoreMenuCanvas.transform.GetChild(5).transform.DOScale(new Vector3(-1f, 1f, 0), 0.3f);
         scoreMenuCanvas.transform.GetChild(6).transform.DOScale(new Vector3(1f, 1f, 0), 0.3f);
         scoreMenuCanvas.GetComponentInChildren<HorizontalLayoutGroup>().gameObject.transform.DOMoveX(0, 0f);
@@ -123,7 +123,7 @@ public class UIManager : MonoBehaviour
     {
       
         creditsMenuCanvas.transform.GetChild(0).transform.DOScale(new Vector3(1, 1, 0), 0.3f);
-        creditsMenuCanvas.transform.GetChild(1).transform.DOScale(new Vector3(1, 1, 0), 0.3f);
+        creditsMenuCanvas.transform.GetChild(1).transform.DOScale(new Vector3(1.5f, 1.5f, 0), 0.3f);
         creditsMenuCanvas.transform.GetChild(2).transform.DOScale(new Vector3(1, 1, 0), 0.3f);
         creditsMenuCanvas.transform.GetChild(3).transform.DOScale(new Vector3(1, 1, 0), 0.3f);
     }

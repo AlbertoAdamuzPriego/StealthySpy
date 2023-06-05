@@ -32,8 +32,6 @@ public class EnemyController : MonoBehaviour
 
     [SerializeField] VisionTriangleController fov; //Área de visión
 
-    private bool playerIsDetected;
-
     void Start()
     {
 
@@ -51,8 +49,8 @@ public class EnemyController : MonoBehaviour
     {
         if (!incapacitated)
         {
-            if (!playerIsDetected)
-            {
+           
+         
                 if (MoveToTarget()) 
                 {
                     //Se desplaza hacia la posición correspondiente
@@ -75,7 +73,7 @@ public class EnemyController : MonoBehaviour
                     }
                 }
 
-            }
+            
 
             //Dibuja el área de visión
             fov.DrawMesh();

@@ -109,8 +109,8 @@ public class VisionTriangleController : MonoBehaviour
         initialAngle = angle;
     }
 
-    //Dibuja el mesh con una cierta rotación y devuelve si el jugador está siendo detectado
-    public bool DrawMesh(float rotation=0)
+    //Dibuja el mesh con una cierta rotación
+    public void DrawMesh(float rotation=0)
     {
         transform.position = originPoint.position;
         
@@ -183,7 +183,5 @@ public class VisionTriangleController : MonoBehaviour
 
         // Asignar el mesh actualizado al MeshFilter
         visionMeshFilter.mesh = visionMesh;
-
-        return isPlayerDetected;
     }
 }

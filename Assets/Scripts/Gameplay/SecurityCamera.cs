@@ -3,27 +3,28 @@ using System.Collections.Generic;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
+//Controlador de las cámaras de seguridad
 public class SecurityCamera : MonoBehaviour
 {
-    [SerializeField] Quaternion finalRotation;
-    [SerializeField] float rotationSpeed;
-    [SerializeField] VisionTriangleController fov;
+    [SerializeField] Quaternion finalRotation; //Rotación final de la cabeza
+    [SerializeField] float rotationSpeed; //Velocidad de rotación
+    [SerializeField] VisionTriangleController fov; //Área de visión
 
-    private Quaternion startRotation;
-    private Quaternion targetRotation;
-    private float progress = 0f;
+    private Quaternion startRotation; //Rotación inicial (por defecto la que tiene en la escena)
+    private Quaternion targetRotation; //Rotación objetivo (por defecto finalRotation)
+    private float progress = 0f; //Indica el progreso de rotación
 
-    [SerializeField] private float waitTime;
+    [SerializeField] private float waitTime; //Tiempo de espera
 
-    private float timer;
-    private bool playerIsDetected;
+    private float timer; //Contador para el tiempo de espera
+   
 
     void Start()
     {
         startRotation = transform.rotation; // Rotación inicial del objeto
         targetRotation = finalRotation; // Rotación objetivo del objeto
         timer = 0;
-        playerIsDetected = false;
+        
     }
 
     private void Update()
@@ -42,6 +43,8 @@ public class SecurityCamera : MonoBehaviour
             if (timer>waitTime)
             {
                 progress = 0f;
+
+                //Ahora la rotación inicial y objetivo se intercambian para revertir el movimiento
                 Quaternion tempRotation = startRotation;
                 startRotation = targetRotation;
                 targetRotation = tempRotation;
@@ -50,12 +53,14 @@ public class SecurityCamera : MonoBehaviour
     
         }
 
+        //Se redibuja el mesh con la rotación actual 
         else
-           playerIsDetected = fov.DrawMesh(transform.rotation.z*100);
+           fov.DrawMesh(transform.rotation.z*100);
 
     
     }
 
+    //Actualiza el contador
     private void UpdateTimer()
     {
         timer += Time.deltaTime;
